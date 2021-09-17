@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import styles from '../styles/homeStyles';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
 
 const home = () => {
 
@@ -9,17 +11,18 @@ const home = () => {
         <View style={styles.outerView}>
 
             <View style={styles.headView}>
-                <Text style={styles.appName}>Blogue</Text>
+                <Icon name="bookmark" size={45} color="#eca72c" />
+                <Text style={styles.appName}>BLOGUE</Text>
                 <Text style={styles.headText}>Weave your imagination into words</Text>
             </View>
         
             <TouchableOpacity style={styles.btn1}>
-                <Text style={styles.text1}>SIGN IN!</Text>
+                <Text style={styles.text1}>Sign In</Text>
             </TouchableOpacity>
 
             <Text style={styles.commentTxt}>Not an existing user?</Text>
             <TouchableOpacity style={styles.btn2}>
-                <Text style={styles.text2}>SIGN UP</Text>
+                <Text style={styles.text2}>Sign Up</Text>
             </TouchableOpacity>
 
         </View>

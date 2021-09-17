@@ -8,23 +8,24 @@ const yellowcrayola = '#fbb13c';
 const selectiveyellow = '#ffba08';
 const darkyellow = '#ffba08';
 const orangeyellow = '#ff9e00';
-const extradarkblue = '#000814';
+const extradarkblue = '#14213d';
 
 const styles = StyleSheet.create({
     headView : {
-        marginTop: hp('25'),
-        marginBottom : 10,
+        marginTop: hp('18'),
+        marginBottom : hp('1'),
         justifyContent : 'center',
         alignItems : 'center'
     },
     headText : {
-        fontSize: hp('2'),
+        fontSize: hp('2.5'),
         color: 'white'
     },
     appName : {
-        fontSize: hp('8'),
-        padding: 10,
-        color: marigold
+        fontSize: hp('9'),
+        // padding: 10,
+        color: marigold,
+        fontFamily : 'monospace'
     },
     outerView : {
         alignItems : 'center',
@@ -32,36 +33,40 @@ const styles = StyleSheet.create({
         height : hp('100')
     },
     btn1 : {
-        margin: 40,
-        padding: 15,
+        marginTop: hp('8'),
+        marginBottom: hp('4'),
+        padding: hp('1.75'),
         width: wp('60'),
         height: hp('10'),
         backgroundColor : marigold,
-        color: extradarkblue,
         borderRadius: hp('5'),
-        alignItems : 'center'
+        alignItems : 'center',
+        
     },
     text1 : {
-        fontSize : hp('4')
+        fontSize : hp('3.5'),
+        padding: hp('0.75'),
+        color: extradarkblue
     }, 
     btn2 : {
-        margin: 5,
-        padding: 15,
+        padding: hp('1.75'),
         width: wp('60'),
         height: hp('10'),
         borderRadius: hp('5'),
-        borderWidth:1,
+        borderWidth:1.5,
         borderColor: marigold,
         alignItems : 'center',
         
     },
     text2 : {
-        fontSize: hp('4'),
+        fontSize: hp('3.5'),
+        padding: hp('0.5'),
         color: marigold
     },
     commentTxt : {
         fontSize: hp('2.5'),
-        color: marigold
+        marginBottom: hp('0.5'),
+        color: 'white'
     }
 
 });
