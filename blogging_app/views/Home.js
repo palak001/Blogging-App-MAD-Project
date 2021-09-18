@@ -13,7 +13,7 @@ const home = () => {
             <View style={styles.headView}>
                 <Icon name="bookmark" size={45} color="#eca72c" />
                 <Text style={styles.appName}>BLOGUE</Text>
-                <Text style={styles.headText}>Weave your imagination into words</Text>
+                <Text style={styles.headText}>Weave your Imagination into Words</Text>
             </View>
         
             <TouchableOpacity style={styles.btn1}>

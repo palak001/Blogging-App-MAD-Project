@@ -2,13 +2,19 @@ import {StyleSheet} from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
 //colours
-const gunmetal = '#16262e';
+
+// const extradarkblue = '#14213d';
+
+//yellow black palette
+const lgrey = '#d6d6d6';
+const lyellow = '#ffee32';
+const dyellow = '#ffd100';
+const charcoal = '#202020';
+const dgrey = '#333533';
 const marigold = '#eca72c';
-const yellowcrayola = '#fbb13c';
-const selectiveyellow = '#ffba08';
-const darkyellow = '#ffba08';
-const orangeyellow = '#ff9e00';
-const extradarkblue = '#14213d';
+
+
+const bg = '#202020';
 
 const styles = StyleSheet.create({
     headView : {
@@ -19,17 +25,19 @@ const styles = StyleSheet.create({
     },
     headText : {
         fontSize: hp('2.5'),
-        color: 'white'
+        color: lgrey,
+        fontFamily: 'Pacifico'
     },
     appName : {
         fontSize: hp('9'),
         // padding: 10,
         color: marigold,
-        fontFamily : 'monospace'
+        fontFamily : 'Sofia',
+
     },
     outerView : {
         alignItems : 'center',
-        backgroundColor : extradarkblue,
+        backgroundColor : bg,
         height : hp('100')
     },
     btn1 : {
@@ -45,8 +53,9 @@ const styles = StyleSheet.create({
     },
     text1 : {
         fontSize : hp('3.5'),
-        padding: hp('0.75'),
-        color: extradarkblue
+        padding: hp('0.50'),
+        color: bg,
+        fontFamily: 'Lato'       
     }, 
     btn2 : {
         padding: hp('1.75'),
@@ -61,12 +70,15 @@ const styles = StyleSheet.create({
     text2 : {
         fontSize: hp('3.5'),
         padding: hp('0.5'),
-        color: marigold
+        color: marigold,
+        fontFamily: 'Lato'       
     },
     commentTxt : {
         fontSize: hp('2.5'),
         marginBottom: hp('0.5'),
-        color: 'white'
+        color: lgrey,
+        fontFamily: 'Lato'       
+        
     }
 
 });
