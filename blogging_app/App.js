@@ -1,11 +1,13 @@
 import React from 'react';
 
-import Home from './views/Home'
+import Home from './views/Home';
+import SignIn from './views/SignIn';
 
 const app = () => {
 
   return(
-    <Home/>
+    // <Home/>
+    <SignIn/>
   )
   
 };

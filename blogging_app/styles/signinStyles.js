@@ -5,25 +5,21 @@ import {lgrey, lyellow, dyellow, charcoal, dgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
     headView : {
-        marginTop: hp('18'),
+        // marginTop: hp('18'),
         marginBottom : hp('1'),
         justifyContent : 'center',
         alignItems : 'center'
     },
     headText : {
-        fontSize: hp('2.5'),
-        color: lgrey,
-        fontFamily: 'Pacifico'
-    },
-    appName : {
-        fontSize: hp('9'),
-        // padding: 10,
+        fontSize: hp('7'),
         color: marigold,
-        fontFamily : 'Sofia',
-
+        fontFamily: 'Lato',
+        marginTop: hp('3'),
+        marginBottom: hp('5.5')
+        // fontFamily: 'Pacifico'
     },
     outerView : {
-        alignItems : 'center',
+        // alignItems : 'center',
         backgroundColor : bg,
         height : hp('100')
     },
@@ -31,41 +27,47 @@ const styles = StyleSheet.create({
         marginTop: hp('8'),
         marginBottom: hp('4'),
         padding: hp('1.75'),
-        width: wp('60'),
-        height: hp('10'),
+        width: wp('50'),
+        height: hp('9'),
         backgroundColor : marigold,
-        borderRadius: hp('5'),
+        borderRadius: hp('4'),
         alignItems : 'center',
         
     },
     text1 : {
-        fontSize : hp('3.5'),
-        padding: hp('0.50'),
+        fontSize : hp('3.25'),
+        padding: hp('0.35'),
         color: bg,
         fontFamily: 'Lato'       
     }, 
-    btn2 : {
-        padding: hp('1.75'),
-        width: wp('60'),
-        height: hp('10'),
-        borderRadius: hp('5'),
-        borderWidth:1.5,
-        borderColor: marigold,
-        alignItems : 'center',
-        
+    interface: {
+        alignItems: 'center'
+    }, 
+    icon : {
+        marginLeft: hp('2'),
+        marginTop: hp('2'),
     },
-    text2 : {
-        fontSize: hp('3.5'),
-        padding: hp('0.5'),
-        color: marigold,
-        fontFamily: 'Lato'       
-    },
-    commentTxt : {
-        fontSize: hp('2.5'),
-        marginBottom: hp('0.5'),
+    label : {
         color: lgrey,
-        fontFamily: 'Lato'       
+        fontFamily: 'Lato',
+        fontSize: hp('3'),
+        marginBottom: hp('1')
+    },
+    input : {
+        borderWidth: 1.5,
+        width: wp('90'),
+        height: hp('10'),
+        borderColor: marigold,
+        borderRadius: hp('2'),
+        color: marigold,
+        fontFamily: 'Lato',
+        fontSize: hp('3'),
+        padding: hp('1')
         
+       
+    },
+    group: {
+        marginBottom: hp('3')
     }
 
 });
