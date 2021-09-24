@@ -12,7 +12,9 @@
   "dependencies": {
     "react": "17.0.2",
     "react-native": "0.65.1",
-    "react-native-google-signin": "^2.1.1"
+    "react-native-google-signin": "^2.1.1",
+    "react-native-responsive-screen": "^1.4.2",
+    "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.15.5",
