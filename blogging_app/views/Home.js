@@ -22,6 +22,9 @@ const home = ({navigation}) => {
         onPress={() => navigation.navigate('SignUp')}>
         <Text style={styles.text2}>Sign Up</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <Text style={styles.commentTxt}>Anonymous</Text>
+      </TouchableOpacity>
     </View>
   );
 };
