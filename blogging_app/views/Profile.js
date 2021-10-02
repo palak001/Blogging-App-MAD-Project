@@ -17,7 +17,7 @@ const profile = ({navigation}) => {
             style={styles.profilePicture}
           />
           <View style={styles.alignment}>
-            <Text style={styles.appName}>Palak</Text>
+            <Text style={styles.appName}>Name</Text>
             <Text style={styles.headText}>
               Weave your Imagination into Words
             </Text>
