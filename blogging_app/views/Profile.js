@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from '../styles/profileStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {authContext} from '../Context/AuthContext';
 
 const profile = ({navigation}) => {
+  const [user, setUser] = useContext(authContext);
+
   return (
     <View style={styles.outerView}>
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
@@ -17,7 +20,7 @@ const profile = ({navigation}) => {
             style={styles.profilePicture}
           />
           <View style={styles.alignment}>
-            <Text style={styles.appName}>Name</Text>
+            <Text style={styles.appName}>{user.displayName}</Text>
             <Text style={styles.headText}>
               Weave your Imagination into Words
             </Text>
