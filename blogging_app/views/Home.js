@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
 
 const home = ({navigation}) => {
-  const [user, setUser] = useContext(authContext);
-  console.log(user);
+  const context = useContext(authContext);
+  console.log(context.user);
   return (
     <View style={styles.outerView}>
       <View style={styles.headView}>
@@ -14,7 +14,7 @@ const home = ({navigation}) => {
         <Text style={styles.appName}>BLOGUE</Text>
         <Text style={styles.headText}>Weave your Imagination into Words</Text>
       </View>
-      {!user && (
+      {!context.user && (
         <>
           <TouchableOpacity
             style={styles.btn1}
@@ -33,7 +33,7 @@ const home = ({navigation}) => {
         </>
       )}
 
-      {user && (
+      {context.user && (
         <>
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Text style={styles.commentTxt}>Visit profile</Text>

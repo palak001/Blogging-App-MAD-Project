@@ -1,17 +1,16 @@
-import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, Button, TouchableOpacity, TextInput} from 'react-native';
+import React, {useEffect, useContext} from 'react';
+import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import styles from '../styles/signinStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {
   GoogleSignin,
   GoogleSigninButton,
-  statusCodes,
 } from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 import {authContext} from '../Context/AuthContext';
 
 const signin = ({navigation}) => {
-  const [user, setUser] = useContext(authContext);
+  const context = useContext(authContext);
 
   useEffect(() => {
     GoogleSignin.configure({
@@ -23,43 +22,16 @@ const signin = ({navigation}) => {
   }, []);
 
   const onAuthStateChanged = user => {
-    setUser(user);
+    context.setUser(user);
     if (user) {
       navigation.navigate('Home');
     }
-    console.log(user);
-  };
-
-  const onGoogleButtonPress = async () => {
-    try {
-      // Get the users ID token
-      const {idToken} = await GoogleSignin.signIn();
-      // Create a Google credential with the token
-      console.log(idToken);
-      const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-      // Sign-in the user with the credential
-      return auth().signInWithCredential(googleCredential);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-      auth()
-        .signOut()
-        .then(() => alert('Your are signed out!'));
-      setUser(null);
-    } catch (error) {
-      console.error(error);
-    }
+    console.log(context.user);
   };
 
   return (
     <>
-      {!user && (
+      {!context.user && (
         <View style={styles.outerView}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')}>
             <Icon
@@ -101,21 +73,12 @@ const signin = ({navigation}) => {
                 style={{width: 192, height: 48}}
                 size={GoogleSigninButton.Size.Wide}
                 color={GoogleSigninButton.Color.Dark}
-                onPress={onGoogleButtonPress}
+                onPress={context.onGoogleButtonPress}
               />
             </TouchableOpacity>
           </View>
         </View>
       )}
-
-      {/* {user && (
-        <View style={styles.outerView}>
-          <View>
-            <Text style={styles.headText}>Welcome {user.displayName}</Text>
-            <Button onPress={signOut} title="LogOut" color="red"></Button>
-          </View>
-        </View>
-      )} */}
     </>
   );
 };

@@ -3,9 +3,10 @@ import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from '../styles/profileStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
+import btnStyles from '../styles/signinStyles';
 
 const profile = ({navigation}) => {
-  const [user, setUser] = useContext(authContext);
+  const context = useContext(authContext);
 
   return (
     <View style={styles.outerView}>
@@ -20,7 +21,9 @@ const profile = ({navigation}) => {
             style={styles.profilePicture}
           />
           <View style={styles.alignment}>
-            <Text style={styles.appName}>{user.displayName}</Text>
+            {/* <Text style={styles.appName}>{context.user.displayName}</Text> */}
+            <Text style={styles.appName}>Palak</Text>
+
             <Text style={styles.headText}>
               Weave your Imagination into Words
             </Text>
@@ -28,6 +31,14 @@ const profile = ({navigation}) => {
               <Text style={styles.textStyle}>0 Following</Text>
               <Text style={styles.textStyle}>0 Followers</Text>
             </View>
+            <TouchableOpacity
+              style={btnStyles.btn1}
+              onPress={() => {
+                context.signOut();
+                navigation.navigate('Home');
+              }}>
+              <Text style={btnStyles.text1}>Sign Out</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
