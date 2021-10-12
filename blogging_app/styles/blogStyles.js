@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   preview: {
-    height: hp(60),
+    height: hp(70),
     margin: 12,
     padding: 10,
     justifyContent: 'space-between',
@@ -29,11 +29,17 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     marginRight: 10,
   },
+  icon: {
+    width: hp('5'),
+    height: hp('5'),
+    // paddingLeft: 3,
+  },
   commentTxt: {
     fontSize: hp('2'),
     marginBottom: hp('0.5'),
     color: lgrey,
     fontFamily: 'Lato',
+    lineHeight: 22,
   },
 });
 
