@@ -1,47 +1,106 @@
 import React, {useContext} from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, FlatList} from 'react-native';
 import styles from '../styles/profileStyles';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import {authContext} from '../Context/AuthContext';
-import btnStyles from '../styles/signinStyles';
+import {authContext} from '../context/AuthContext';
+import renderItem from './renderItem';
+
+const Data = [
+  {
+    id: 0,
+  },
+  {
+    id: 1,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 2,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 3,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 4,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 5,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 6,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 7,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 8,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 9,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+  {
+    id: 10,
+    date: '10 June',
+    title: 'The book that fell off the shelf',
+    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
+    content:
+      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
+  },
+];
 
 const profile = ({navigation}) => {
   const context = useContext(authContext);
+  console.log(context.user);
 
   return (
     <View style={styles.outerView}>
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-        <Icon name="angle-left" size={45} color="#eca72c" style={styles.icon} />
-      </TouchableOpacity>
-
-      <View style={styles.innerView}>
-        <View style={styles.alignment}>
-          <Image
-            source={{uri: 'https://reactjs.org/logo-og.png'}}
-            style={styles.profilePicture}
-          />
-          <View style={styles.alignment}>
-            {/* <Text style={styles.appName}>{context.user.displayName}</Text> */}
-            <Text style={styles.appName}>Palak</Text>
-
-            <Text style={styles.headText}>
-              Weave your Imagination into Words
-            </Text>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={styles.textStyle}>0 Following</Text>
-              <Text style={styles.textStyle}>0 Followers</Text>
-            </View>
-            <TouchableOpacity
-              style={btnStyles.btn1}
-              onPress={() => {
-                context.signOut();
-                navigation.navigate('Home');
-              }}>
-              <Text style={btnStyles.text1}>Sign Out</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
+      <FlatList
+        data={Data}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };

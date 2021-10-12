@@ -3,7 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {lgrey, lyellow, dyellow, charcoal, dgrey, marigold, bg} from './theme';
+import {lgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
   headView: {

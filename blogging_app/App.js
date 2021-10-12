@@ -5,7 +5,8 @@ import Home from './views/Home';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Profile from './views/Profile';
-import {AuthProvider} from './Context/AuthContext';
+import {AuthProvider} from './context/AuthContext';
+import {ScrollView} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 

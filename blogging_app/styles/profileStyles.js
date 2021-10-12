@@ -6,11 +6,28 @@ import {
 import {lgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
+  profile: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: wp(100),
+  },
+  scrollView: {
+    height: '40%',
+    width: '100%',
+    alignSelf: 'center',
+  },
+  ellipseStyle: {
+    width: wp(100),
+    alignItems: 'flex-end',
+  },
   outerView: {
-    // alignItems : 'center',
     backgroundColor: bg,
     height: hp('100'),
-    // justifyContent: 'space-between',
+    flex: 1,
+  },
+  contentContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   innerView: {
     flexDirection: 'column',
@@ -18,17 +35,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    marginLeft: hp('2'),
-    marginTop: hp('2'),
+    width: hp('5'),
+    height: hp('5'),
   },
   profilePicture: {
-    width: 200,
-    height: 200,
+    width: 60,
+    height: 60,
     borderRadius: 100,
     backgroundColor: marigold,
   },
   appName: {
-    fontSize: hp('9'),
+    fontSize: hp('4'),
     // padding: 10,
     color: marigold,
     fontFamily: 'Sofia',
@@ -45,8 +62,8 @@ const styles = StyleSheet.create({
     fontFamily: 'PTSans',
   },
   alignment: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
 });
 
