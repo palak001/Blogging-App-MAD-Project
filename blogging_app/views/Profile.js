@@ -7,6 +7,7 @@ import btnStyles from '../styles/signinStyles';
 
 const profile = ({navigation}) => {
   const context = useContext(authContext);
+  // console.log(context);
 
   return (
     <View style={styles.outerView}>
@@ -17,12 +18,12 @@ const profile = ({navigation}) => {
       <View style={styles.innerView}>
         <View style={styles.alignment}>
           <Image
-            source={{uri: 'https://reactjs.org/logo-og.png'}}
+            source={{uri: context.user.photoURL}}
             style={styles.profilePicture}
           />
           <View style={styles.alignment}>
             {/* <Text style={styles.appName}>{context.user.displayName}</Text> */}
-            <Text style={styles.appName}>Palak</Text>
+            <Text style={styles.appName}>{context.user.displayName}</Text>
 
             <Text style={styles.headText}>
               Weave your Imagination into Words

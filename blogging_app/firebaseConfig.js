@@ -6,6 +6,8 @@ const firebaseConfig = {
 
   authDomain: "blogging-app-41d26.firebaseapp.com",
 
+  databaseURL: "https://blogging-app-41d26-default-rtdb.asia-southeast1.firebasedatabase.app",
+
   projectId: "blogging-app-41d26",
 
   storageBucket: "blogging-app-41d26.appspot.com",

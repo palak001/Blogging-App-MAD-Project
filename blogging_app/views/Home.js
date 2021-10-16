@@ -6,7 +6,7 @@ import {authContext} from '../Context/AuthContext';
 
 const home = ({navigation}) => {
   const context = useContext(authContext);
-  console.log(context.user);
+  // console.log(context.user);
   return (
     <View style={styles.outerView}>
       <View style={styles.headView}>
@@ -27,9 +27,9 @@ const home = ({navigation}) => {
             onPress={() => navigation.navigate('SignUp')}>
             <Text style={styles.text2}>Sign Up</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Text style={styles.commentTxt}>Anonymous</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </>
       )}
 

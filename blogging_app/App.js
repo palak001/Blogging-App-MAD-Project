@@ -7,18 +7,10 @@ import SignUp from './views/SignUp';
 import Profile from './views/Profile';
 import WriteBlog from './views/WriteBlog';
 import {AuthProvider} from './Context/AuthContext';
-import { initializeApp } from "firebase/app";
-import firebaseConfig from './firebaseConfig';
-
 const Stack = createNativeStackNavigator();
 
-
-
 const app = () => {
-
-  initializeApp(firebaseConfig);
   
-  // console.log(firebaseConfig);
 
   return (
     <AuthProvider>

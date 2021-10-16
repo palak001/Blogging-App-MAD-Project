@@ -4,11 +4,16 @@ import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import styles from '../styles/writeBlogStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
-import firebase from 'firebase/app';
+import { initializeApp} from "firebase/app";
+import { getDatabase, ref, set, push, update } from "firebase/database"
+import firebaseConfig from '../firebaseConfig';
+import uuid from 'react-native-uuid';
+
 
 const writeBlog = ({navigation}) => {
+
   const context = useContext(authContext);
-  // console.log(context.user);
+  // console.log(context);
 
   const [blog, setBlog] = useState({
     title : "", 
@@ -16,8 +21,36 @@ const writeBlog = ({navigation}) => {
   });
 
 
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+
   const uploadBlog = () => {
-    console.log('upload blog');
+    const userId = context.user.uid;
+    const uName = context.user.displayName;
+
+    try{
+      set(ref(database, 'blogs/'+userId), {
+        username: uName
+      });
+
+      const postId = uuid.v4()
+      const postListRef = ref(database, 'blogs/'+userId+'/posts/');   //reference to lists of all posts of the user
+      const newPostRef = push(postListRef);
+
+      update(newPostRef, {
+        title: blog.title,
+        content: blog.blogText
+      
+      });
+
+      //add some popup message
+      navigation.navigate('Home');
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+
   }
 
   return (
