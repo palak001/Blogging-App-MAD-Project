@@ -5,11 +5,21 @@ import Home from './views/Home';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Profile from './views/Profile';
+import WriteBlog from './views/WriteBlog';
 import {AuthProvider} from './Context/AuthContext';
+import { initializeApp } from "firebase/app";
+import firebaseConfig from './firebaseConfig';
 
 const Stack = createNativeStackNavigator();
 
+
+
 const app = () => {
+
+  initializeApp(firebaseConfig);
+  
+  // console.log(firebaseConfig);
+
   return (
     <AuthProvider>
       <NavigationContainer>
@@ -32,6 +42,11 @@ const app = () => {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="WriteBlog"
+            component={WriteBlog}
             options={{headerShown: false}}
           />
         </Stack.Navigator>

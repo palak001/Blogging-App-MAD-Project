@@ -38,6 +38,9 @@ const home = ({navigation}) => {
           <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
             <Text style={styles.commentTxt}>Visit profile</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('WriteBlog')}>
+            <Text style={styles.commentTxt}>Write a Blog</Text>
+          </TouchableOpacity>
         </>
       )}
     </View>
