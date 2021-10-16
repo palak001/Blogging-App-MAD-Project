@@ -5,7 +5,7 @@ import styles from '../styles/writeBlogStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
 import { initializeApp} from "firebase/app";
-import { getDatabase, ref, set, push, update } from "firebase/database"
+import { getDatabase, ref, set, push, child, update } from "firebase/database"
 import firebaseConfig from '../firebaseConfig';
 import uuid from 'react-native-uuid';
 
@@ -27,21 +27,26 @@ const writeBlog = ({navigation}) => {
   const uploadBlog = () => {
     const userId = context.user.uid;
     const uName = context.user.displayName;
+    const postId = uuid.v4()
+
 
     try{
-      set(ref(database, 'blogs/'+userId), {
-        username: uName
-      });
 
-      const postId = uuid.v4()
-      const postListRef = ref(database, 'blogs/'+userId+'/posts/');   //reference to lists of all posts of the user
-      const newPostRef = push(postListRef);
-
-      update(newPostRef, {
+      const postData = {
+        author: uName,
+        postId: postId,
+        body: blog.blogText,
         title: blog.title,
-        content: blog.blogText
+        likes: 0
+      };
+
+      const newPostKey = push(child(ref(database), 'blogs/'+userId+'/posts/')).key;
       
-      });
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      const updates = {};
+      updates['/all-blogs/' + newPostKey] = postData;
+      updates['/user-blogs/' + userId + '/' + newPostKey] = postData;
+      update(ref(database), updates);
 
       //add some popup message
       navigation.navigate('Home');
