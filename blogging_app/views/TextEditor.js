@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 import textEditorStyles from '../styles/textEditorStyles';
-import {lgrey, marigold} from '../styles/theme';
+import {marigold} from '../styles/theme';
 
 const textEditor = () => {
   const [blog, setBlog] = useState('');
