@@ -3,13 +3,19 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {lgrey, lyellow, dyellow, charcoal, dgrey, marigold, bg} from './theme';
+import {lgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
   headView: {
     marginTop: hp('18'),
     marginBottom: hp('1'),
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navHeadView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
     alignItems: 'center',
   },
   headText: {
@@ -24,9 +30,20 @@ const styles = StyleSheet.create({
     color: marigold,
     fontFamily: 'Sofia',
   },
+  navAppName: {
+    fontSize: hp('3'),
+    paddingLeft: 10,
+    color: marigold,
+    fontFamily: 'Sofia',
+  },
   outerView: {
     alignItems: 'center',
     backgroundColor: bg,
+    height: hp('100'),
+  },
+  outerViewLight: {
+    alignItems: 'center',
+    // backgroundColor: bg,
     height: hp('100'),
   },
   btn1: {
