@@ -16,14 +16,17 @@ const styles = StyleSheet.create({
     width: '100%',
     alignSelf: 'center',
   },
-  ellipseStyle: {
-    width: wp(100),
-    alignItems: 'flex-end',
+  headerIconStyle: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   outerView: {
     backgroundColor: bg,
     height: hp('100'),
     flex: 1,
+    padding: 10,
   },
   contentContainer: {
     justifyContent: 'center',
@@ -37,6 +40,8 @@ const styles = StyleSheet.create({
   icon: {
     width: hp('5'),
     height: hp('5'),
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   profilePicture: {
     width: 60,

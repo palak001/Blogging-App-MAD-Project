@@ -13,19 +13,39 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato',
     fontWeight: 'bold',
   },
+  smallTitle: {
+    fontSize: hp('2.5'),
+    padding: hp('0.5'),
+    color: marigold,
+    fontFamily: 'Lato',
+    fontWeight: 'bold',
+  },
   preview: {
     height: hp(70),
-    margin: 12,
-    padding: 10,
+    justifyContent: 'space-between',
+  },
+  smallPreview: {
+    height: hp(25),
     justifyContent: 'space-between',
   },
   previewImage: {
     height: hp(30),
     width: wp(90),
   },
+  smallPreviewImage: {
+    height: hp(10),
+    width: wp(20),
+    resizeMode: 'cover',
+  },
   smallProfile: {
     width: 30,
     height: 30,
+    borderRadius: 100,
+    marginRight: 10,
+  },
+  verySmallProfile: {
+    width: 20,
+    height: 20,
     borderRadius: 100,
     marginRight: 10,
   },
@@ -36,6 +56,21 @@ const styles = StyleSheet.create({
   },
   commentTxt: {
     fontSize: hp('2'),
+    marginBottom: hp('0.5'),
+    color: lgrey,
+    fontFamily: 'Lato',
+    lineHeight: 22,
+  },
+  commentTxt2: {
+    fontSize: hp('2'),
+    marginBottom: hp('0.5'),
+    color: lgrey,
+    fontFamily: 'Lato',
+    lineHeight: 25,
+    paddingTop: 10,
+  },
+  smallTxt: {
+    fontSize: hp('1'),
     marginBottom: hp('0.5'),
     color: lgrey,
     fontFamily: 'Lato',

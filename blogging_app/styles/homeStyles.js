@@ -12,6 +12,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  navHeadView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
   headText: {
     fontSize: hp('2.5'),
     color: lgrey,
@@ -24,9 +30,20 @@ const styles = StyleSheet.create({
     color: marigold,
     fontFamily: 'Sofia',
   },
+  navAppName: {
+    fontSize: hp('3'),
+    paddingLeft: 10,
+    color: marigold,
+    fontFamily: 'Sofia',
+  },
   outerView: {
     alignItems: 'center',
     backgroundColor: bg,
+    height: hp('100'),
+  },
+  outerViewLight: {
+    alignItems: 'center',
+    // backgroundColor: bg,
     height: hp('100'),
   },
   btn1: {

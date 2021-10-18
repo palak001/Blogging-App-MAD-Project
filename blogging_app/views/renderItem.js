@@ -1,12 +1,12 @@
 import React from 'react';
 import ProfileHeader from './ProfileHeader';
-import BlogPreview from './BlogPreview';
+import PersonalBlogPreview from './PersonalBlogPreview';
 
 const renderItem = ({item}) => {
   if (item.id == 0) {
     return <ProfileHeader />;
   } else {
-    return <BlogPreview blog={item} />;
+    return <PersonalBlogPreview blog={item} />;
   }
 };
 

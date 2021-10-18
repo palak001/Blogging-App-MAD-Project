@@ -3,32 +3,65 @@ import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from '../styles/profileStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../context/AuthContext';
+import {themeContext} from '../context/ThemeContext';
+import {useNavigation} from '@react-navigation/native';
 
 const profileHeader = () => {
-  const context = useContext(authContext);
+  const authContextData = useContext(authContext);
+  const themeContextData = useContext(themeContext);
+  const navigation = useNavigation();
+
   return (
-    <View style={{color: 'red'}}>
-      <View style={styles.ellipseStyle}>
-        <TouchableOpacity onPress={() => console.log('hello')}>
-          <Icon
-            name="ellipsis-h"
-            size={35}
-            color="#eca72c"
-            style={styles.icon}
-          />
-        </TouchableOpacity>
+    <View>
+      <View style={styles.headerIconStyle}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() =>
+              themeContextData.theme === 'dark'
+                ? themeContextData.setTheme('light')
+                : themeContextData.setTheme('dark')
+            }>
+            {themeContextData.theme === 'dark' && (
+              <Icon
+                name="moon-o"
+                size={25}
+                color="#eca72c"
+                style={styles.icon}
+              />
+            )}
+            {themeContextData.theme === 'light' && (
+              <Icon
+                name="sun-o"
+                size={25}
+                color="#eca72c"
+                style={styles.icon}
+              />
+            )}
+            {/* </View> */}
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => console.log('hello')}>
+            <Icon
+              name="ellipsis-h"
+              size={25}
+              color="#eca72c"
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.innerView}>
         <View style={styles.profile}>
           <View>
             <Image
-              source={{uri: context.user.photoURL}}
+              source={{uri: authContextData.user.photoURL}}
               style={styles.profilePicture}
             />
           </View>
           <View style={styles.alignment}>
-            <Text style={styles.appName}>{context.user.displayName}</Text>
+            <Text style={styles.appName}>
+              {authContextData.user.displayName}
+            </Text>
             <Text style={styles.headText}>
               Weave your Imagination into Words
             </Text>
