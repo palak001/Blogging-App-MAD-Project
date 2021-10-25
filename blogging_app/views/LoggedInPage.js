@@ -1,13 +1,14 @@
 import React from 'react';
-import {View, FlatList} from 'react-native';
-import styles from '../styles/profileStyles';
-import renderItem from './renderItem';
-
+import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {useContext} from 'react/cjs/react.development';
+import {authContext} from '../context/AuthContext';
+import blogStyles from '../styles/blogStyles';
+import homeStyles from '../styles/homeStyles';
+import loggedInPageStyles from '../styles/loggedInPageStyles';
+import RecommendedBlogPreview from './RecommendedBlogPreview';
 
 const Data = [
-  {
-    id: 0,
-  },
   {
     id: 1,
     date: '10 June',
@@ -90,10 +91,38 @@ const Data = [
   },
 ];
 
+const renderItem = ({item}) => {
+  if (item.id == 0) {
+    return <ProfileHeader />;
+  } else {
+    return <RecommendedBlogPreview blog={item} />;
+  }
+};
 
-const profile = ({navigation}) => {
+const LoggedInPage = ({navigation}) => {
+  const contextAuth = useContext(authContext);
   return (
-    <View style={styles.outerView}>
+    <View style={loggedInPageStyles.outerView}>
+      <View
+        style={{
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+        <Icon name="navicon" size={25} color="#eca72c" />
+        <View style={homeStyles.navHeadView}>
+          <Icon name="bookmark" size={20} color="#eca72c" />
+          <Text style={homeStyles.navAppName}>BLOGUE</Text>
+        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <Image
+            style={blogStyles.smallProfile}
+            source={{uri: contextAuth.user.photoURL}}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <Text style={blogStyles.commentTxt2}>Recommended Posts</Text>
 
       <FlatList
         data={Data}
@@ -102,8 +131,13 @@ const profile = ({navigation}) => {
         navigation={navigation}
       />
 
+      <TouchableOpacity
+        style={loggedInPageStyles.createPost}
+        onPress={() => navigation.navigate('TextEditor')}>
+        <Icon name="pencil-square-o" size={25} />
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default profile;
+export default LoggedInPage;

@@ -7,7 +7,7 @@ import {
 import styles from '../styles/signupStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import auth from '@react-native-firebase/auth';
-import {authContext} from '../Context/AuthContext';
+import {authContext} from '../context/AuthContext';
 
 const signup = ({navigation}) => {
   const context = useContext(authContext);
