@@ -34,7 +34,7 @@ const writeBlog = ({navigation}) => {
 
       const postData = {
         author: uName,
-        postId: postId,
+        userId: userId,
         body: blog.blogText,
         title: blog.title,
         likes: 0
@@ -45,7 +45,7 @@ const writeBlog = ({navigation}) => {
       // Write the new post's data simultaneously in the posts list and the user's post list.
       const updates = {};
       updates['/all-blogs/' + newPostKey] = postData;
-      updates['/user-blogs/' + userId + '/' + newPostKey] = postData;
+      updates['/user-blogs/' + userId + '/' + newPostKey] = postId;
       update(ref(database), updates);
 
       //add some popup message
