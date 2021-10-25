@@ -7,6 +7,7 @@ import {themeContext} from '../context/ThemeContext';
 import LoggedInPage from './LoggedInPage';
 
 const home = ({navigation}) => {
+
   const contextAuth = useContext(authContext);
   const contextTheme = useContext(themeContext);
 
@@ -48,6 +49,7 @@ const home = ({navigation}) => {
             </>
           )}
         </View>
+
       )}
 
       {contextAuth.user && <LoggedInPage navigation={navigation} />}

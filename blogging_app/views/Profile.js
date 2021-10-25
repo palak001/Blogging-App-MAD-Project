@@ -3,6 +3,7 @@ import {View, FlatList} from 'react-native';
 import styles from '../styles/profileStyles';
 import renderItem from './renderItem';
 
+
 const Data = [
   {
     id: 0,
@@ -89,15 +90,18 @@ const Data = [
   },
 ];
 
+
 const profile = ({navigation}) => {
   return (
     <View style={styles.outerView}>
+
       <FlatList
         data={Data}
         renderItem={renderItem}
         keyExtractor={item => item.id}
         navigation={navigation}
       />
+
     </View>
   );
 };

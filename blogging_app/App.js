@@ -5,17 +5,23 @@ import Home from './views/Home';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Profile from './views/Profile';
+
+import WriteBlog from './views/WriteBlog';
 import {AuthProvider} from './context/AuthContext';
 import {ThemeProvider} from './context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
 import profileHeader from './views/ProfileHeader';
 import TextEditor from './views/TextEditor';
 
+
 const Stack = createNativeStackNavigator();
 
 const app = () => {
+  
+
   return (
     <AuthProvider>
+
       <ThemeProvider>
         <NavigationContainer>
           <Stack.Navigator>
@@ -57,6 +63,7 @@ const app = () => {
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>
+
     </AuthProvider>
   );
 };
