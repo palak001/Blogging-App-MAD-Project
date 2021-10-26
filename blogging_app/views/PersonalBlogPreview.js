@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {View, Text, Image} from 'react-native';
 import styles from '../styles/blogStyles';
-import {authContext} from '../context/AuthContext';
+import {authContext} from '../Context/AuthContext';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 const blogPreview = ({blog}) => {

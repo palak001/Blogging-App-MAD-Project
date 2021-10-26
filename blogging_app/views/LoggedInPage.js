@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {useContext} from 'react/cjs/react.development';
-import {authContext} from '../context/AuthContext';
+import {authContext} from '../Context/AuthContext';
 import blogStyles from '../styles/blogStyles';
 import homeStyles from '../styles/homeStyles';
 import loggedInPageStyles from '../styles/loggedInPageStyles';
