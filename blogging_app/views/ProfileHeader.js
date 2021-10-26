@@ -2,8 +2,8 @@ import React, {useContext} from 'react';
 import {View, Image, Text, TouchableOpacity} from 'react-native';
 import styles from '../styles/profileStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import {authContext} from '../context/AuthContext';
-import {themeContext} from '../context/ThemeContext';
+import {authContext} from '../Context/AuthContext';
+import {themeContext} from '../Context/ThemeContext';
 import {useNavigation} from '@react-navigation/native';
 
 const profileHeader = () => {

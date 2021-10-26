@@ -2,12 +2,11 @@ import React, {useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import styles from '../styles/homeStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import {authContext} from '../context/AuthContext';
-import {themeContext} from '../context/ThemeContext';
+import {authContext} from '../Context/AuthContext';
+import {themeContext} from '../Context/ThemeContext';
 import LoggedInPage from './LoggedInPage';
 
 const home = ({navigation}) => {
-
   const contextAuth = useContext(authContext);
   const contextTheme = useContext(themeContext);
 
@@ -49,7 +48,6 @@ const home = ({navigation}) => {
             </>
           )}
         </View>
-
       )}
 
       {contextAuth.user && <LoggedInPage navigation={navigation} />}
