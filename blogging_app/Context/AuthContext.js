@@ -3,7 +3,6 @@ import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import auth from '@react-native-firebase/auth';
 
 export const authContext = createContext();
-
 export const AuthProvider = props => {
   const [user, setUser] = useState();
 
