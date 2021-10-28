@@ -12,7 +12,6 @@ import {
 const textEditor = () => {
   const [blog, setBlog] = useState('');
   const [image, setImage] = useState(null);
-
   return (
     <View style={textEditorStyles.outerView}>
       <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
@@ -51,25 +50,24 @@ const textEditor = () => {
           onChangeText={setBlog}
           value={blog}
         />
+      </View>
+
+      <View>
         {image && (
-          <View>
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                padding: 5,
-                zIndex: 1,
-              }}
-              onPress={() => setImage(null)}>
-              <Text style={{color: '#A9A9A9'}}>X</Text>
-            </TouchableOpacity>
-            <Image
-              style={{width: '100%', height: hp(35)}}
-              source={{uri: image}}
-            />
-          </View>
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              top: 0,
+              right: 5,
+              padding: 5,
+              zIndex: 1,
+            }}
+            onPress={() => setImage(null)}>
+            <Text style={{color: '#A9A9A9'}}>X</Text>
+          </TouchableOpacity>
         )}
+
+        <Image style={{width: '100%', height: hp(35)}} source={{uri: image}} />
       </View>
     </View>
   );
