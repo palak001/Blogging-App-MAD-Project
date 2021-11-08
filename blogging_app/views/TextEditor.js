@@ -10,7 +10,7 @@ const textEditor = () => {
     <View style={textEditorStyles.outerView}>
       <View style={{justifyContent: 'space-between', flexDirection: 'row'}}>
         <TouchableOpacity>
-          <Text style={textEditorStyles.textStyle}>X</Text>
+          <Text style={textEditorStyles.textStyle} >X</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => console.log(blog)}>
           <Text style={textEditorStyles.textStyle}>Publish</Text>
