@@ -1,20 +1,34 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from '../styles/blogStyles';
-import {authContext} from '../Context/AuthContext';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {initializeApp} from 'firebase/app';
+import {getDatabase, ref, onValue} from 'firebase/database';
+import firebaseConfig from '../firebaseConfig';
 
 const recommendedBlogPreview = ({blog}) => {
-  const contextAuth = useContext(authContext);
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+  const [authorData, setAuthorData] = useState({});
+
+  console.log('blog', blog);
+  useEffect(() => {
+    const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
+    console.log('email', email);
+    const userRef = ref(database, 'users/' + email);
+    onValue(userRef, snapshot => {
+      setAuthorData(snapshot.val());
+    });
+  }, [onValue]);
   return (
     <TouchableOpacity style={styles.smallPreview}>
       <View style={{paddingTop: 10}}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             style={styles.verySmallProfile}
-            source={{uri: contextAuth.user.photoURL}}
+            source={{uri: authorData.photoUrl}}
           />
-          <Text style={styles.commentTxt}>Palak </Text>
+          <Text style={styles.commentTxt}>{authorData.author} </Text>
           <Text style={styles.smallTxt}> • </Text>
           <Text style={styles.commentTxt}> {blog.date}</Text>
         </View>
@@ -23,7 +37,10 @@ const recommendedBlogPreview = ({blog}) => {
             <Text style={styles.smallTitle}>{blog.title}</Text>
           </View>
           <View>
-            <Image style={styles.smallPreviewImage} source={{uri: blog.url}} />
+            <Image
+              style={styles.smallPreviewImage}
+              source={{uri: blog.imageURL}}
+            />
           </View>
         </View>
       </View>

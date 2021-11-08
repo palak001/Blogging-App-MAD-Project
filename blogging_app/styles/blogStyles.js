@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
   smallPreview: {
     height: hp(25),
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
   },
   previewImage: {
     height: hp(30),
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   icon: {
-    width: hp('5'),
-    height: hp('5'),
+    width: hp('3'),
+    height: hp('3'),
     // paddingLeft: 3,
   },
   commentTxt: {

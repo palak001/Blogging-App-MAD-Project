@@ -8,10 +8,11 @@ import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, set, push, child, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import uuid from 'react-native-uuid';
+import ProfileHeader from './ProfileHeader';
 
 const writeBlog = ({navigation}) => {
   const context = useContext(authContext);
-  // console.log(context);
+  console.log(context);
 
   const [blog, setBlog] = useState({
     title: '',
@@ -23,16 +24,19 @@ const writeBlog = ({navigation}) => {
 
   const uploadBlog = () => {
     const userId = context.user.uid;
-    const uName = context.user.displayName;
+    const uEmail = context.user.email;
     const postId = uuid.v4();
 
     try {
       const postData = {
-        author: uName,
+        authorEmail: uEmail,
         userId: userId,
         body: blog.blogText,
         title: blog.title,
         likes: 0,
+        imageURL:
+          'https://s167.daydaynews.cc/?url=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F12009452680%2F1000',
+        date: '10 September 2021',
       };
 
       const newPostKey = push(

@@ -56,6 +56,11 @@ const app = () => {
               component={TextEditor}
               options={{headerShown: false}}
             />
+            <Stack.Screen
+              name="WriteBlog"
+              component={WriteBlog}
+              options={{headerShown: false}}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>

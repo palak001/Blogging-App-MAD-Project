@@ -1,7 +1,8 @@
 import React from 'react';
 import {View, FlatList} from 'react-native';
 import styles from '../styles/profileStyles';
-import renderItem from './renderItem';
+import ProfileHeader from './ProfileHeader';
+import PersonalBlogPreview from './PersonalBlogPreview';
 
 const Data = [
   {
@@ -88,6 +89,14 @@ const Data = [
       'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
   },
 ];
+
+const renderItem = ({item}) => {
+  if (item.id == 0) {
+    return <ProfileHeader />;
+  } else {
+    return <PersonalBlogPreview blog={item} />;
+  }
+};
 
 const profile = ({navigation}) => {
   return (
