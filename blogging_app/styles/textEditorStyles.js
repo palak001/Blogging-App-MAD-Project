@@ -5,32 +5,52 @@ import {
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from './theme';
 
+
 const styles = StyleSheet.create({
-  editor: {
-    fontSize: hp('3'),
-    padding: hp('0.5'),
+  a: {
+    fontWeight: "bold",
     color: lgrey,
-    fontFamily: 'Lato',
-    width: '100%',
   },
-  textStyle: {
-    color: marigold,
-    padding: 10,
-    fontSize: hp('2.5'),
-    fontFamily: 'Lato',
+  div: {
+    fontFamily: "monospace",
   },
-  icon: {
-    width: hp('6'),
-    height: hp('6'),
-    textAlign: 'center',
-    textAlignVertical: 'center',
+  p: {
+    fontSize: hp(3),
   },
-  outerView: {
-    // alignItems: 'center',
-    backgroundColor: bg,
-    height: hp('100'),
-    padding: 10,
+  /*******************************/
+  container: {
+    flex: 1,
+    marginTop: hp(4),
+    backgroundColor: "yellow",
   },
+  editor: {
+    minHeight: hp(50),
+    backgroundColor: "black",
+    borderColor: "black",
+    borderWidth: 1,
+  },
+  rich: {
+    height: hp(50),
+    flex: 1,
+    backgroundColor: "#000000"
+  },
+  richBar: {
+    height: hp(10),
+    backgroundColor: marigold,
+  },
+  text: {
+    fontWeight: "bold",
+    fontSize: hp(4),
+  },
+  tib: {
+    textAlign: "center",
+    color: "#515156",
+  },
+  contentStyle: {
+    backgroundColor: 'black',
+    color: 'white',
+    
+  }
 });
 
 export default styles;

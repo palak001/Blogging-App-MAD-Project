@@ -7,6 +7,13 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import HTMLView from "react-native-htmlview";
+import textEditorStyles from '../styles/textEditorStyles';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {lgrey, marigold, bg} from '../styles/theme';
+
 
 const editorScreen = () => {
   const strikethrough = require("../assets/icons/strikethrough-solid.svg");
@@ -14,7 +21,7 @@ const editorScreen = () => {
 
   const RichText = useRef(); 
 
-  const [article, setArticle] = useState("");
+  // const [article, setArticle] = useState("");
 
   function editorInitializedCallback() {
     RichText.current?.registerToolbar(function (items) {
@@ -49,27 +56,32 @@ const editorScreen = () => {
 
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.text}>Editor</Text>
+    // <ScrollView style={textEditorStyles.container}>
+      <ScrollView>
+     
+
+      <Text style={textEditorStyles.text}>Editor</Text>
+      
       <RichEditor
         disabled={false}
-        containerStyle={styles.editor}
+        containerStyle={textEditorStyles.editor}
         ref={RichText}
-        style={styles.rich}
+        style={textEditorStyles.rich}
         placeholder={"Start Writing Here"}
-        onChange={(text) => setArticle(text)}
+        // onChange={(text) => setArticle(text)}
         editorInitializedCallback={editorInitializedCallback}
         onHeightChange={handleHeightChange}
+        editorStyle={textEditorStyles.contentStyle}
       />
       <RichToolbar
-        style={[styles.richBar]}
+        style={[textEditorStyles.richBar]}
         editor={RichText}
         disabled={false}
-        iconTint={"purple"}
-        selectedIconTint={"pink"}
-        disabledIconTint={"purple"}
+        iconTint={lgrey}
+        selectedIconTint={"#FFFFFF"}
+        disabledIconTint={lgrey}
         onPressAddImage={onPressAddImage}
-        iconSize={40}
+        iconSize={hp(4)}
         actions={[
           "insertVideo",
           ...defaultActions,
@@ -79,61 +91,20 @@ const editorScreen = () => {
         // map icons for self made actions
         iconMap={{
           [actions.heading1]: ({ tintColor }) => (
-            <Text style={[styles.tib, { color: tintColor }]}>H1</Text>
+            <Text style={[textEditorStyles.tib, { color: tintColor }]}>H1</Text>
           ),
           [actions.setStrikethrough]: strikethrough,
           ["insertVideo"]: video,
         }}
         insertVideo={insertVideo}
       />
-      <Text style={styles.text}>Result</Text>
-      <HTMLView value={article} stylesheet={styles} />
+      
+      {/* <HTMLView value={article} stylesheet={textEditorStyles} /> */}
     </ScrollView>
+
   );
 };
 
 
 export default editorScreen;
 
-
-const styles = StyleSheet.create({
-  /********************************/
-  /* styles for html tags */
-  a: {
-    fontWeight: "bold",
-    color: "purple",
-  },
-  div: {
-    fontFamily: "monospace",
-  },
-  p: {
-    fontSize: 30,
-  },
-  /*******************************/
-  container: {
-    flex: 1,
-    marginTop: 40,
-    backgroundColor: "#F5FCFF",
-  },
-  editor: {
-    backgroundColor: "black",
-    borderColor: "black",
-    borderWidth: 1,
-  },
-  rich: {
-    minHeight: 300,
-    flex: 1,
-  },
-  richBar: {
-    height: 50,
-    backgroundColor: "#F5FCFF",
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 20,
-  },
-  tib: {
-    textAlign: "center",
-    color: "#515156",
-  },
-});
