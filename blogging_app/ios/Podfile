@@ -14,6 +14,8 @@ target 'blogging_app' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'blogging_appTests' do
     inherit! :complete
     # Pods for testing
