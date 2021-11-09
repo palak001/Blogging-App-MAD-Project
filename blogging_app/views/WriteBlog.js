@@ -12,7 +12,7 @@ import ProfileHeader from './ProfileHeader';
 
 const writeBlog = ({navigation}) => {
   const context = useContext(authContext);
-  console.log(context);
+  // console.log(context);
 
   const [blog, setBlog] = useState({
     title: '',
@@ -61,6 +61,9 @@ const writeBlog = ({navigation}) => {
       <TouchableOpacity onPress={() => navigation.navigate('Home')}>
         <Icon name="angle-left" size={45} color="#eca72c" style={styles.icon} />
       </TouchableOpacity>
+      <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
+        <Text style={styles.text1}>Upload</Text>
+      </TouchableOpacity>
 
       <View style={styles.headView}>
         <Icon name="bookmark" size={45} color="#eca72c" />
@@ -76,7 +79,7 @@ const writeBlog = ({navigation}) => {
               style={styles.title}
               onChangeText={e => {
                 setBlog({...blog, title: e});
-                console.log(blog);
+                // console.log(blog);
               }}
             />
 
@@ -87,13 +90,13 @@ const writeBlog = ({navigation}) => {
               multiline={true}
               onChangeText={e => {
                 setBlog({...blog, blogText: e});
-                console.log(blog);
+                // console.log(blog);
               }}
             />
 
-            <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
+            {/* <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
               <Text style={styles.text1}>Upload</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </>
       )}

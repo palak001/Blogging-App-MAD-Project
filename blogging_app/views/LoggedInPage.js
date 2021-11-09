@@ -27,18 +27,22 @@ const LoggedInPage = ({navigation}) => {
 
   useEffect(() => {
     const blogRef = ref(database, 'all-blogs');
-    onValue(blogRef, snapshot => {
-      const Data = [];
-      const blogList = snapshot.val();
-      Object.keys(blogList).map(data => {
-        let obj = blogList[data];
-        obj['id'] = data;
-
-        return Data.push(obj);
-      });
-      console.log('data', Data);
-      setRecommendedBlogs(Data);
-    });
+    onValue(
+      blogRef,
+      snapshot => {
+        const Data = [];
+        const blogList = snapshot.val();
+        if (blogList) {
+          Object.keys(blogList).map(data => {
+            let obj = blogList[data];
+            obj['id'] = data;
+            return Data.push(obj);
+          });
+        }
+        setRecommendedBlogs(Data);
+      },
+      {onlyOnce: true},
+    );
   }, []);
 
   return (

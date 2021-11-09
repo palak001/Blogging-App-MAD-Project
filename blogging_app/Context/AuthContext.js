@@ -26,6 +26,7 @@ export const AuthProvider = props => {
           author: user.displayName,
           userId: user.uid,
           photoUrl: user.photoURL,
+          likedPosts: ['first'],
         };
         const email = user.email.replace(/\./g, ','); // replaced . by ,
         const updates = {};

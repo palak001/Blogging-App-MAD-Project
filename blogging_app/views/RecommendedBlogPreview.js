@@ -14,13 +14,19 @@ const recommendedBlogPreview = ({blog}) => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
-    console.log('email', email);
-    const userRef = ref(database, 'users/' + email);
-    onValue(userRef, snapshot => {
-      setAuthorData(snapshot.val());
-    });
-  }, [onValue]);
+    if (blog && blog['authorEmail']) {
+      const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
+      console.log('email', email);
+      const userRef = ref(database, 'users/' + email);
+      onValue(
+        userRef,
+        snapshot => {
+          setAuthorData(snapshot.val());
+        },
+        {onlyOnce: true},
+      );
+    }
+  }, [blog]);
 
   return (
     <TouchableOpacity
