@@ -9,48 +9,40 @@ import {lgrey, marigold, bg} from './theme';
 const styles = StyleSheet.create({
   a: {
     fontWeight: "bold",
-    color: lgrey,
+    color: bg,
   },
   div: {
     fontFamily: "monospace",
   },
   p: {
-    fontSize: hp(3),
-  },
-  /*******************************/
-  container: {
-    flex: 1,
-    marginTop: hp(4),
-    backgroundColor: "yellow",
-  },
-  editor: {
-    minHeight: hp(50),
-    backgroundColor: "black",
-    borderColor: "black",
-    borderWidth: 1,
+    fontSize: hp(4),
   },
   rich: {
-    height: hp(50),
+    minHeight: hp(51.5),
     flex: 1,
-    backgroundColor: "#000000"
+    // backgroundColor: lgrey
   },
   richBar: {
-    height: hp(10),
+    height: hp(7),
     backgroundColor: marigold,
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: hp(4),
   },
   tib: {
     textAlign: "center",
-    color: "#515156",
+    color: bg,
+    fontSize: hp(3),
+    fontWeight: "bold"
   },
   contentStyle: {
-    backgroundColor: 'black',
-    color: 'white',
-    
-  }
+    backgroundColor: bg,
+    color: lgrey, 
+  },
+  textStyle: {
+    color: marigold,
+    padding: 10,
+    fontSize: hp('3'),
+    fontFamily: 'Lato',
+  }, 
+  
 });
 
 export default styles;

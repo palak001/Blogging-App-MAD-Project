@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { StyleSheet, Text, ScrollView, View } from "react-native";
+import { StyleSheet, Text, ScrollView, View, TouchableOpacity } from "react-native";
 import {
   actions,
   defaultActions,
@@ -13,6 +13,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from '../styles/theme';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
 
 
 const editorScreen = () => {
@@ -56,11 +58,16 @@ const editorScreen = () => {
 
 
   return (
-    // <ScrollView style={textEditorStyles.container}>
-      <ScrollView>
-     
-
-      <Text style={textEditorStyles.text}>Editor</Text>
+    
+    <ScrollView style={{backgroundColor: bg}}>
+      <View style={{backgroundColor: bg , justifyContent: 'space-between', flexDirection: 'row'}}>
+        <TouchableOpacity>
+          <Icon name="angle-left" size={hp(5)} color={marigold}/>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <Text style={textEditorStyles.textStyle}>Publish</Text>
+        </TouchableOpacity>
+      </View>
       
       <RichEditor
         disabled={false}
@@ -72,14 +79,15 @@ const editorScreen = () => {
         editorInitializedCallback={editorInitializedCallback}
         onHeightChange={handleHeightChange}
         editorStyle={textEditorStyles.contentStyle}
+        useContainer={false}
       />
       <RichToolbar
         style={[textEditorStyles.richBar]}
         editor={RichText}
         disabled={false}
-        iconTint={lgrey}
-        selectedIconTint={"#FFFFFF"}
-        disabledIconTint={lgrey}
+        iconTint={bg}
+        selectedIconTint={lgrey}
+        disabledIconTint={bg}
         onPressAddImage={onPressAddImage}
         iconSize={hp(4)}
         actions={[
