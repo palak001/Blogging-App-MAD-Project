@@ -74,6 +74,7 @@ const LoggedInPage = ({navigation}) => {
       <TouchableOpacity
         style={loggedInPageStyles.createPost}
         onPress={() => navigation.navigate('WriteBlog')}>
+        {/* // onPress={() => navigation.navigate('TextEditor')}> */}
         <Icon name="pencil-square-o" size={25} />
       </TouchableOpacity>
     </View>
