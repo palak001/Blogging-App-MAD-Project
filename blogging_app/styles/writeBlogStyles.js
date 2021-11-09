@@ -3,7 +3,7 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {lgrey, lyellow, dyellow, charcoal, dgrey, marigold, bg} from './theme';
+import {lgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
   headView: {
@@ -18,17 +18,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato',
     marginBottom: hp('3.5'),
     marginTop: hp('1.5'),
-
-    // fontFamily: 'Pacifico'
   },
   outerView: {
-    // alignItems : 'center',
     backgroundColor: bg,
     height: hp('100'),
+    flex: 1,
   },
-  // bookMarkIcon : {
-  //     marginTop : hp('8'),
-  // },
+
   btn1: {
     marginTop: hp('2.5'),
     marginBottom: hp('2'),
@@ -41,7 +37,6 @@ const styles = StyleSheet.create({
   },
   text1: {
     fontSize: hp('3'),
-    // padding: hp('0.2'),
     color: bg,
     fontFamily: 'Lato',
   },
@@ -59,10 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: hp('0.5'),
   },
   title: {
-    // borderWidth: 1.5,
     width: wp('90'),
-    height: hp('8'),
-    // borderColor: marigold,
     borderRadius: hp('1.5'),
     color: marigold,
     fontWeight: 'bold',
@@ -71,22 +63,18 @@ const styles = StyleSheet.create({
     padding: hp('0.75'),
   },
   blogText: {
-    // borderWidth: 1.5,
     width: wp('90'),
-    height: hp('50'),
-    // borderColor: marigold,
+    // height: hp('50'),
     borderRadius: hp('1.5'),
     color: lgrey,
-    // fontWeight : 'bold',
     fontFamily: 'Lato',
-    fontSize: hp('3'),
+    fontSize: hp('2.75'),
+    lineHeight: hp(4.5),
     textAlignVertical: 'top',
-    // padding: hp('0.75')
   },
   group: {
-    // marginBottom: hp('1.7'),
-    // justifyContent : 'flex-start',
     alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 

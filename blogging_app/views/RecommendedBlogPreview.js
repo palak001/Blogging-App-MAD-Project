@@ -5,13 +5,14 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
+import {useNavigation} from '@react-navigation/native';
 
 const recommendedBlogPreview = ({blog}) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
   const [authorData, setAuthorData] = useState({});
+  const navigation = useNavigation();
 
-  console.log('blog', blog);
   useEffect(() => {
     const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
     console.log('email', email);
@@ -20,9 +21,14 @@ const recommendedBlogPreview = ({blog}) => {
       setAuthorData(snapshot.val());
     });
   }, [onValue]);
+
   return (
-    <TouchableOpacity style={styles.smallPreview}>
-      <View style={{paddingTop: 10}}>
+    <TouchableOpacity
+      style={styles.smallPreview}
+      onPress={() => {
+        navigation.navigate('ReadBlog', {blog, authorData});
+      }}>
+      <View>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <Image
             style={styles.verySmallProfile}

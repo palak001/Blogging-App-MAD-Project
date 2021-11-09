@@ -5,7 +5,6 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
 import {themeContext} from '../Context/ThemeContext';
 import LoggedInPage from './LoggedInPage';
-import WriteBlog from './WriteBlog';
 
 const home = ({navigation}) => {
   const contextAuth = useContext(authContext);

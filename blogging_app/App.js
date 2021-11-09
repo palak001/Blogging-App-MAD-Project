@@ -5,8 +5,8 @@ import Home from './views/Home';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Profile from './views/Profile';
-
 import WriteBlog from './views/WriteBlog';
+import ReadBlog from './views/ReadBlog';
 import {AuthProvider} from './Context/AuthContext';
 import {ThemeProvider} from './Context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
@@ -59,6 +59,11 @@ const app = () => {
             <Stack.Screen
               name="WriteBlog"
               component={WriteBlog}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ReadBlog"
+              component={ReadBlog}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
