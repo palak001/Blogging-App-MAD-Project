@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { StyleSheet, Text, ScrollView, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, ScrollView, View, TouchableOpacity, TextInput } from "react-native";
 import {
   actions,
   defaultActions,
@@ -7,19 +7,19 @@ import {
   RichToolbar,
 } from "react-native-pell-rich-editor";
 import HTMLView from "react-native-htmlview";
-import textEditorStyles from '../styles/textEditorStyles';
+import styles from '../styles/textEditorStyles';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from '../styles/theme';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-
+import {useNavigation} from '@react-navigation/native';
 
 
 const editorScreen = () => {
-  const strikethrough = require("../assets/icons/strikethrough-solid.svg");
-  const video = require("../assets/icons/video-solid.svg"); 
+
+  const navigation = useNavigation();
 
   const RichText = useRef(); 
 
@@ -35,11 +35,6 @@ const editorScreen = () => {
     });
   }
 
-  // Callback after height change
-  function handleHeightChange(height) {
-    // console.log("editor height change:", height);
-  }
-
   function onPressAddImage() {
     // you can easily add images from your gallery
     RichText.current?.insertImage(
@@ -48,41 +43,38 @@ const editorScreen = () => {
   }
 
 
-  function insertVideo() {
-    // you can easily add videos from your gallery
-    RichText.current?.insertVideo(
-      "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/rabbit320.mp4"
-    );
-  }
-
-
-
   return (
     
     <ScrollView style={{backgroundColor: bg}}>
       <View style={{backgroundColor: bg , justifyContent: 'space-between', flexDirection: 'row'}}>
-        <TouchableOpacity>
-          <Icon name="angle-left" size={hp(5)} color={marigold}/>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Icon name="angle-left" size={hp(4.5)} color={marigold} style={styles.backIcon}/>
         </TouchableOpacity>
         <TouchableOpacity>
-          <Text style={textEditorStyles.textStyle}>Publish</Text>
+          <Text style={styles.textStyle}>Publish</Text>
         </TouchableOpacity>
       </View>
+
+      <TextInput
+        placeholder="Add a Title..."
+        placeholderTextColor='#eca72c'
+        style={styles.title}
+      />
       
       <RichEditor
         disabled={false}
-        containerStyle={textEditorStyles.editor}
+        containerStyle={styles.editor}
         ref={RichText}
-        style={textEditorStyles.rich}
+        style={styles.rich}
         placeholder={"Start Writing Here"}
         // onChange={(text) => setArticle(text)}
         editorInitializedCallback={editorInitializedCallback}
-        onHeightChange={handleHeightChange}
-        editorStyle={textEditorStyles.contentStyle}
+        editorStyle={styles.contentStyle}
         useContainer={false}
+       
       />
       <RichToolbar
-        style={[textEditorStyles.richBar]}
+        style={[styles.richBar]}
         editor={RichText}
         disabled={false}
         iconTint={bg}
@@ -91,20 +83,29 @@ const editorScreen = () => {
         onPressAddImage={onPressAddImage}
         iconSize={hp(4)}
         actions={[
-          "insertVideo",
-          ...defaultActions,
-          actions.setStrikethrough,
+          actions.keyboard,
+          actions.setBold,
+          actions.setItalic,
+          actions.setUnderline,
+          actions.removeFormat,
           actions.heading1,
+          actions.heading2,
+          actions.insertBulletsList,
+          actions.insertOrderedList,
+          actions.insertImage,
+          actions.undo,
+          actions.redo,
+          actions.insertLink
         ]}
         // map icons for self made actions
         iconMap={{
-          [actions.heading1]: ({ tintColor }) => (
-            <Text style={[textEditorStyles.tib, { color: tintColor }]}>H1</Text>
+          [actions.heading1]: () => (
+            <Text style={[styles.tib]}>H1</Text>
           ),
-          [actions.setStrikethrough]: strikethrough,
-          ["insertVideo"]: video,
+          [actions.heading2]: () => (
+            <Text style={[styles.tib]}>H2</Text>
+          ),
         }}
-        insertVideo={insertVideo}
       />
       
       {/* <HTMLView value={article} stylesheet={textEditorStyles} /> */}

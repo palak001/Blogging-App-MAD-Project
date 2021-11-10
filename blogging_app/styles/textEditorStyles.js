@@ -7,18 +7,20 @@ import {lgrey, marigold, bg} from './theme';
 
 
 const styles = StyleSheet.create({
-  a: {
-    fontWeight: "bold",
-    color: bg,
-  },
-  div: {
-    fontFamily: "monospace",
-  },
-  p: {
-    fontSize: hp(4),
-  },
+  // a: {
+  //   fontWeight: "bold",
+  //   color: bg,
+   
+  // },
+  // div: {
+  //   fontFamily: "monospace",
+    
+  // },
+  // p: {
+  //   fontSize: hp(4),
+  // },
   rich: {
-    minHeight: hp(51.5),
+    minHeight: hp(45),
     flex: 1,
     // backgroundColor: lgrey
   },
@@ -41,8 +43,31 @@ const styles = StyleSheet.create({
     padding: 10,
     fontSize: hp('3'),
     fontFamily: 'Lato',
+    marginTop: hp(1.5),
+    marginRight: hp(2)
   }, 
-  
+  backIcon: {
+    marginLeft: hp(2),
+    marginTop: hp(2)
+  }, 
+  large: {
+    color: bg,
+    fontSize: hp(3),
+    fontWeight: "bold"
+  },
+  title : {
+    // borderWidth: 1.5,
+    width: wp('90'),
+    height: hp('5'),
+    // borderColor: marigold,
+    borderRadius: hp('1.5'),
+    color: marigold,
+    fontWeight : 'bold',
+    fontFamily: 'Lato',
+    fontSize: hp('3'),
+    padding: hp('0.75'), 
+    marginLeft: hp(1)    
+  },
 });
 
 export default styles;
