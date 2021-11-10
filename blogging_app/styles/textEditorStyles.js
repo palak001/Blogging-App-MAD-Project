@@ -5,31 +5,68 @@ import {
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from './theme';
 
+
 const styles = StyleSheet.create({
-  editor: {
-    fontSize: hp('3'),
-    padding: hp('0.5'),
-    color: lgrey,
-    fontFamily: 'Lato',
-    width: '100%',
+  // a: {
+  //   fontWeight: "bold",
+  //   color: bg,
+   
+  // },
+  // div: {
+  //   fontFamily: "monospace",
+    
+  // },
+  // p: {
+  //   fontSize: hp(4),
+  // },
+  rich: {
+    minHeight: hp(45),
+    flex: 1,
+    // backgroundColor: lgrey
+  },
+  richBar: {
+    height: hp(7),
+    backgroundColor: marigold,
+  },
+  tib: {
+    textAlign: "center",
+    color: bg,
+    fontSize: hp(3),
+    fontWeight: "bold"
+  },
+  contentStyle: {
+    backgroundColor: bg,
+    color: lgrey, 
   },
   textStyle: {
     color: marigold,
     padding: 10,
-    fontSize: hp('2.5'),
+    fontSize: hp('3'),
     fontFamily: 'Lato',
+    marginTop: hp(1.5),
+    marginRight: hp(2)
+  }, 
+  backIcon: {
+    marginLeft: hp(2),
+    marginTop: hp(2)
+  }, 
+  large: {
+    color: bg,
+    fontSize: hp(3),
+    fontWeight: "bold"
   },
-  icon: {
-    width: hp('6'),
-    height: hp('6'),
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
-  outerView: {
-    // alignItems: 'center',
-    backgroundColor: bg,
-    height: hp('100'),
-    padding: 10,
+  title : {
+    // borderWidth: 1.5,
+    width: wp('90'),
+    height: hp('5'),
+    // borderColor: marigold,
+    borderRadius: hp('1.5'),
+    color: marigold,
+    fontWeight : 'bold',
+    fontFamily: 'Lato',
+    fontSize: hp('3'),
+    padding: hp('0.75'), 
+    marginLeft: hp(1)    
   },
 });
 
