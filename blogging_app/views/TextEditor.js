@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, {useRef, useState, useContext} from "react";
 import { StyleSheet, Text, ScrollView, View, TouchableOpacity, TextInput } from "react-native";
 import {
   actions,
@@ -15,17 +15,66 @@ import {
 import {lgrey, marigold, bg} from '../styles/theme';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {useNavigation} from '@react-navigation/native';
+import {authContext} from '../Context/AuthContext';
+import {initializeApp} from 'firebase/app';
+import {getDatabase, ref, set, push, child, update} from 'firebase/database';
+import firebaseConfig from '../firebaseConfig';
+import uuid from 'react-native-uuid';
+
 
 
 const editorScreen = () => {
 
   const navigation = useNavigation();
+  const context = useContext(authContext);
 
   const RichText = useRef(); 
 
   // const [article, setArticle] = useState("");
+  const [blog, setBlog] = useState({
+    title: '',
+    blogText: '',
+  });
 
-  function editorInitializedCallback() {
+
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+
+
+  const uploadBlog = () => {
+    const userId = context.user.uid;
+    const uName = context.user.displayName;
+    const postId = uuid.v4();
+
+    try {
+      const postData = {
+        author: uName,
+        userId: userId,
+        body: blog.blogText,
+        title: blog.title,
+        likes: 0,
+      };
+
+      const newPostKey = push(
+        child(ref(database), 'blogs/' + userId + '/posts/'),
+      ).key;
+
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      const updates = {};
+      updates['/all-blogs/' + newPostKey] = postData;
+      updates['/user-blogs/' + userId + '/' + newPostKey] = postId;
+      update(ref(database), updates);
+
+      //add some popup message
+      navigation.navigate('Home');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+
+  const editorInitializedCallback = () => {
     RichText.current?.registerToolbar(function (items) {
       // items contain all the actions that are currently active
       console.log(
@@ -35,7 +84,7 @@ const editorScreen = () => {
     });
   }
 
-  function onPressAddImage() {
+  const onPressAddImage = () => {
     // you can easily add images from your gallery
     RichText.current?.insertImage(
       "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png"
@@ -50,7 +99,7 @@ const editorScreen = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Icon name="angle-left" size={hp(4.5)} color={marigold} style={styles.backIcon}/>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => uploadBlog()}>
           <Text style={styles.textStyle}>Publish</Text>
         </TouchableOpacity>
       </View>
@@ -59,6 +108,10 @@ const editorScreen = () => {
         placeholder="Add a Title..."
         placeholderTextColor='#eca72c'
         style={styles.title}
+        onChangeText={e => {
+          setBlog({...blog, title: e});
+          console.log(blog);
+        }}
       />
       
       <RichEditor
@@ -67,7 +120,10 @@ const editorScreen = () => {
         ref={RichText}
         style={styles.rich}
         placeholder={"Start Writing Here"}
-        // onChange={(text) => setArticle(text)}
+        onChange={e => {
+          setBlog({...blog, blogText: e});
+          console.log(blog);
+        }}
         editorInitializedCallback={editorInitializedCallback}
         editorStyle={styles.contentStyle}
         useContainer={false}
