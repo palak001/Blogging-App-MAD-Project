@@ -14,8 +14,9 @@ import {authContext} from '../Context/AuthContext';
 import {themeContext} from '../Context/ThemeContext';
 import {useNavigation} from '@react-navigation/native';
 import {initializeApp} from 'firebase/app';
-import {getDatabase, ref, onValue} from 'firebase/database';
+import {getDatabase, ref, onValue, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
+import {marigold} from '../styles/theme';
 
 const Options1 = [
   {
@@ -39,21 +40,81 @@ const profileHeader = ({authorEmail}) => {
   const [userProfile, setUserProfile] = useState();
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
+  const [following, setFollowing] = useState(false);
 
   useEffect(() => {
     if (authorEmail) {
       setUserEmail(authorEmail);
       const email = authorEmail.replace(/\./g, ','); // replaced . by ,
-      const userRef = ref(database, 'users/' + email);
+      const userRef = ref(database, 'users/');
       onValue(
         userRef,
         snapshot => {
-          setUserProfile(snapshot.val());
+          let userList = [];
+          if (snapshot) {
+            userList = snapshot.val();
+            // author's profile
+            setUserProfile(userList[email]);
+            // my profile
+            let myEmail = authContextData.user.email.replace(/\./g, ',');
+            let myProfile = userList[myEmail];
+            if (
+              myProfile.following &&
+              myProfile.following.includes(userList[email].userId)
+            ) {
+              setFollowing(true);
+            }
+          }
         },
         {onlyOnce: true},
       );
     }
   }, [authorEmail]);
+
+  const handleFollowingStatus = () => {
+    const userRef = ref(database, 'users');
+    onValue(
+      userRef,
+      snapshot => {
+        const myEmail = authContextData.user.email.replace(/\./g, ',');
+        let followingList = [];
+        if (snapshot && snapshot.val()) {
+          const userList = snapshot.val();
+          followingList = userList[myEmail].following;
+        }
+        if (following) {
+          // unfollow the user
+          setFollowing(false);
+          if (
+            followingList &&
+            followingList.includes(`${userProfile.userId}`)
+          ) {
+            const index = followingList.indexOf(`${userProfile.userId}`);
+            if (index >= 0) {
+              followingList.splice(index, 1);
+            }
+            const updates = {};
+            updates['/users/' + myEmail + '/following'] = followingList;
+            update(ref(database), updates);
+          }
+        } else {
+          // follow the user
+          setFollowing(true);
+          console.log('following list: ', followingList);
+          if (
+            followingList &&
+            !followingList.includes(`${userProfile.userId}`)
+          ) {
+            followingList.push(`${userProfile.userId}`);
+            const updates = {};
+            updates['/users/' + myEmail + '/following'] = followingList;
+            update(ref(database), updates);
+          }
+        }
+      },
+      {onlyOnce: true},
+    );
+  };
 
   return (
     <TouchableWithoutFeedback
@@ -191,11 +252,25 @@ const profileHeader = ({authorEmail}) => {
                 <Text style={styles.textStyle}>0 Followers</Text>
               </View>
               {authContextData.user.email !== userEmail && (
-                <>
-                  <View>
-                    <Text style={styles.textStyle}>Follow</Text>
+                <TouchableOpacity
+                  onPress={() => handleFollowingStatus()}
+                  style={{justifyContent: 'center'}}>
+                  <View
+                    style={{
+                      borderColor: marigold,
+                      borderWidth: 1,
+                      borderRadius: 50,
+                      width: '50%',
+                    }}>
+                    {console.log(following)}
+                    {!following && (
+                      <Text style={styles.textStyle2}>Follow</Text>
+                    )}
+                    {following && (
+                      <Text style={styles.textStyle2}>Following</Text>
+                    )}
                   </View>
-                </>
+                </TouchableOpacity>
               )}
             </View>
           </View>

@@ -66,6 +66,12 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'PTSans',
   },
+  textStyle2: {
+    color: marigold,
+    padding: 10,
+    fontFamily: 'PTSans',
+    textAlign: 'center',
+  },
   alignment: {
     // justifyContent: 'center',
     // alignItems: 'center',

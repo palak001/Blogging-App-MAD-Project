@@ -31,7 +31,10 @@ const profile = ({navigation, route}) => {
       userRef,
       snapshot => {
         const userList = snapshot.val();
-        const userObj = {email: user.userEmail, user: userList[email]};
+        let userObj = {email: user.userEmail, user: {}};
+        if (userList) {
+          userObj = {email: user.userEmail, user: userList[email]};
+        }
         setUserProfile(userObj);
         const blogRef = ref(database, 'user-blogs');
         onValue(

@@ -35,13 +35,17 @@ const recommendedBlogPreview = ({blog}) => {
       }}>
       <View>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            style={styles.verySmallProfile}
-            source={{uri: authorData.photoUrl}}
-          />
-          <Text style={styles.commentTxt}>{authorData.author} </Text>
-          <Text style={styles.smallTxt}> • </Text>
-          <Text style={styles.commentTxt}> {blog.date}</Text>
+          {authorData && (
+            <>
+              <Image
+                style={styles.verySmallProfile}
+                source={{uri: authorData.photoUrl}}
+              />
+              <Text style={styles.commentTxt}>{authorData.author} </Text>
+              <Text style={styles.smallTxt}> • </Text>
+              <Text style={styles.commentTxt}> {blog.date}</Text>
+            </>
+          )}
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{width: '60%'}}>
