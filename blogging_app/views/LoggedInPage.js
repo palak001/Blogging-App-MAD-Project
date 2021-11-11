@@ -12,11 +12,7 @@ import {getDatabase, ref, onValue} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 
 const renderItem = ({item}) => {
-  if (item.id == 0) {
-    return <ProfileHeader />;
-  } else {
-    return <RecommendedBlogPreview blog={item} />;
-  }
+  return <RecommendedBlogPreview blog={item} />;
 };
 
 const LoggedInPage = ({navigation}) => {
@@ -27,6 +23,7 @@ const LoggedInPage = ({navigation}) => {
 
   useEffect(() => {
     const blogRef = ref(database, 'all-blogs');
+
     onValue(
       blogRef,
       snapshot => {
@@ -58,7 +55,10 @@ const LoggedInPage = ({navigation}) => {
           <Icon name="bookmark" size={20} color="#eca72c" />
           <Text style={homeStyles.navAppName}>BLOGUE</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('Profile', {userEmail: contextAuth.user.email})
+          }>
           <Image
             style={blogStyles.smallProfile}
             source={{uri: contextAuth.user.photoURL}}

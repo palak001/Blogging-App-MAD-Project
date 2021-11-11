@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 100,
-    backgroundColor: marigold,
+    // backgroundColor: marigold,
   },
   appName: {
     fontSize: hp('4'),

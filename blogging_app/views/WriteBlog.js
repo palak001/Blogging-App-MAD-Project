@@ -5,10 +5,9 @@ import styles from '../styles/writeBlogStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {authContext} from '../Context/AuthContext';
 import {initializeApp} from 'firebase/app';
-import {getDatabase, ref, set, push, child, update} from 'firebase/database';
+import {getDatabase, ref, push, child, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import uuid from 'react-native-uuid';
-import ProfileHeader from './ProfileHeader';
 
 const writeBlog = ({navigation}) => {
   const context = useContext(authContext);
@@ -37,6 +36,7 @@ const writeBlog = ({navigation}) => {
         imageURL:
           'https://s167.daydaynews.cc/?url=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F12009452680%2F1000',
         date: '10 September 2021',
+        postId: postId,
       };
 
       const newPostKey = push(

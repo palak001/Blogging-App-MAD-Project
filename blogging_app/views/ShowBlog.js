@@ -10,14 +10,16 @@ import writeBlogStyles from '../styles/writeBlogStyles';
 import blogStyles from '../styles/blogStyles';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {initializeApp} from 'firebase/app';
-import {getDatabase, ref, onValue, update, off} from 'firebase/database';
+import {getDatabase, ref, onValue, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import {useContext} from 'react/cjs/react.development';
 import {authContext} from '../Context/AuthContext';
+import {useNavigation} from '@react-navigation/native';
 
 const showBlog = ({item}) => {
   const authContextData = useContext(authContext);
   const authorData = item.authorData;
+  const navigation = useNavigation();
   const blog = item.blog;
   const [likedStatus, setLikedStatus] = useState(false);
   const [likesCount, setLikesCount] = useState();
@@ -29,15 +31,14 @@ const showBlog = ({item}) => {
 
   const handleLikedStatus = async () => {
     setLikeButtonDisabled(true);
-    // console.log('clicked!');
     if (likedStatus) {
       await onValue(
         userRef,
         snapshot => {
           const userList = snapshot.val();
           const likedPostList = userList[loggedInUserEmail].likedPosts;
-          if (likedPostList && likedPostList.includes(`${item.blog.id}`)) {
-            const index = likedPostList.indexOf(`${item.blog.id}`);
+          if (likedPostList && likedPostList.includes(`${blog.id}`)) {
+            const index = likedPostList.indexOf(`${blog.id}`);
             if (index >= 0) {
               likedPostList.splice(index, 1);
             }
@@ -59,8 +60,8 @@ const showBlog = ({item}) => {
           const userList = snapshot.val();
           const likedPostList = userList[loggedInUserEmail].likedPosts;
 
-          if (likedPostList && !likedPostList.includes(`${item.blog.id}`)) {
-            likedPostList.push(`${item.blog.id}`);
+          if (likedPostList && !likedPostList.includes(`${blog.id}`)) {
+            likedPostList.push(`${blog.id}`);
             const updates = {};
             updates['/users/' + loggedInUserEmail + '/likedPosts'] =
               likedPostList;
@@ -78,7 +79,7 @@ const showBlog = ({item}) => {
   const updateLikesCount = val => {
     setLikesCount(val);
     const updates = {};
-    updates['/all-blogs/' + item.blog.id + '/likes'] = val;
+    updates['/all-blogs/' + blog.id + '/likes'] = val;
     update(ref(database), updates);
   };
 
@@ -89,8 +90,8 @@ const showBlog = ({item}) => {
         snapshot => {
           const userList = snapshot.val();
           const likedPostList = userList[loggedInUserEmail].likedPosts;
-          console.log(likedPostList.includes(`${item.blog.id}`));
-          if (likedPostList && !likedPostList.includes(`${item.blog.id}`)) {
+          // console.log(likedPostList.includes(`${blog.id}`));
+          if (likedPostList && !likedPostList.includes(`${blog.id}`)) {
             setLikedStatus(false);
           } else setLikedStatus(true);
         },
@@ -129,7 +130,12 @@ const showBlog = ({item}) => {
             width: '90%',
             paddingTop: 15,
           }}>
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Profile', {
+                userEmail: blog.authorEmail,
+              });
+            }}
             style={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
@@ -142,7 +148,7 @@ const showBlog = ({item}) => {
             <Text style={writeBlogStyles.label}>{authorData.author} </Text>
             <Text style={blogStyles.smallTxt}> • </Text>
             <Text style={blogStyles.commentTxt}> {blog.date}</Text>
-          </View>
+          </TouchableOpacity>
           <View
             style={{flexDirection: 'row', paddingRight: 10, paddingTop: 10}}>
             <View

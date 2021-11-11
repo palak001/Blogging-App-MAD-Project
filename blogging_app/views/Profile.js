@@ -1,46 +1,82 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
 import styles from '../styles/profileStyles';
 import ProfileHeader from './ProfileHeader';
 import PersonalBlogPreview from './PersonalBlogPreview';
-
-const Data = [
-  {
-    id: 0,
-  },
-  {
-    id: 1,
-    date: '10 June',
-    title: 'The book that fell off the shelf',
-    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
-    content:
-      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
-  },
-  {
-    id: 2,
-    date: '10 June',
-    title: 'The book that fell off the shelf',
-    url: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/harry-potter-movies-in-order-1598634100.jpg?crop=1.00xw:0.892xh;0,0.0455xh&resize=1200:*',
-    content:
-      'This is the content of the poem I wrote. This was my first ever poem and I really like the idea, I am not sure if the sentences are good or not.',
-  },
-];
+import {initializeApp} from 'firebase/app';
+import {getDatabase, ref, onValue} from 'firebase/database';
+import firebaseConfig from '../firebaseConfig';
+import {authContext} from '../Context/AuthContext';
 
 const renderItem = ({item}) => {
-  if (item.id == 0) {
-    return <ProfileHeader />;
+  if (item.postId == 0) {
+    return <ProfileHeader authorEmail={item.authorEmail} />;
   } else {
     return <PersonalBlogPreview blog={item} />;
   }
 };
 
-const profile = ({navigation}) => {
+const profile = ({navigation, route}) => {
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+  const authContextData = useContext(authContext);
+  const [userProfile, setUserProfile] = useState({});
+  const [Data, setData] = useState([{postId: 0, authorEmail: ''}]);
+
+  useEffect(() => {
+    const user = route.params;
+    const userRef = ref(database, 'users');
+    const email = user.userEmail.replace(/\./g, ',');
+    onValue(
+      userRef,
+      snapshot => {
+        const userList = snapshot.val();
+        const userObj = {email: user.userEmail, user: userList[email]};
+        setUserProfile(userObj);
+        const blogRef = ref(database, 'user-blogs');
+        onValue(
+          blogRef,
+          snapshot => {
+            const completeBlogList = snapshot.val();
+
+            if (userObj && userObj.user) {
+              const blogList = completeBlogList[`${userObj.user.userId}`];
+              let newArray = [...Data];
+              newArray[0].authorEmail = userObj.email;
+              setData(newArray);
+              if (blogList) {
+                const blogKeys = Object.keys(blogList);
+                const allBlogsRef = ref(database, 'all-blogs');
+
+                onValue(
+                  allBlogsRef,
+                  snap => {
+                    const allBlogList = snap.val();
+                    blogKeys.map(key => {
+                      let obj = allBlogList[`${key}`];
+                      obj['id'] = key;
+                      setData([...Data, obj]);
+                    });
+                  },
+                  {onlyOnce: true},
+                );
+              }
+            }
+          },
+          {onlyOnce: true},
+        );
+      },
+      {onlyOnce: true},
+    );
+  }, [route]);
+
   return (
     <View style={styles.outerView}>
+      {/* Your profile */}
       <FlatList
         data={Data}
         renderItem={renderItem}
-        keyExtractor={item => item.id}
+        keyExtractor={item => item.postId}
         navigation={navigation}
       />
     </View>

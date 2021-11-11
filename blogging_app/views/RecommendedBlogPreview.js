@@ -16,7 +16,6 @@ const recommendedBlogPreview = ({blog}) => {
   useEffect(() => {
     if (blog && blog['authorEmail']) {
       const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
-      console.log('email', email);
       const userRef = ref(database, 'users/' + email);
       onValue(
         userRef,

@@ -17,7 +17,6 @@ export const AuthProvider = props => {
     try {
       console.log('into signin process');
       const {idToken} = await GoogleSignin.signIn();
-      // console.log(idToken);
       const googleCredential = auth.GoogleAuthProvider.credential(idToken);
 
       const user = (await auth().signInWithCredential(googleCredential)).user;
@@ -41,7 +40,6 @@ export const AuthProvider = props => {
   };
 
   const signOut = async () => {
-    console.log(auth());
     try {
       await GoogleSignin.revokeAccess();
       await GoogleSignin.signOut();
@@ -50,7 +48,6 @@ export const AuthProvider = props => {
       // .catch(error => console.log(error));
       setUser(null);
     } catch (error) {
-      console.log('error');
       console.error(error);
     }
   };
