@@ -10,11 +10,13 @@ import {ThemeProvider} from './Context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
 import profileHeader from './views/ProfileHeader';
 import TextEditor from './views/TextEditor';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
 const app = () => {
   return (
+    <>
     <AuthProvider>
       <ThemeProvider>
         <NavigationContainer>
@@ -58,6 +60,9 @@ const app = () => {
         </NavigationContainer>
       </ThemeProvider>
     </AuthProvider>
+    <Toast/>
+
+    </>
   );
 };
 
