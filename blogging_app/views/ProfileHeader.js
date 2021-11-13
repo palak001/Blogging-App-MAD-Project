@@ -100,7 +100,7 @@ const profileHeader = ({authorEmail}) => {
         } else {
           // follow the user
           setFollowing(true);
-          console.log('following list: ', followingList);
+          // console.log('following list: ', followingList);
           if (
             followingList &&
             !followingList.includes(`${userProfile.userId}`)
@@ -247,10 +247,10 @@ const profileHeader = ({authorEmail}) => {
               <Text style={styles.headText}>
                 Weave your Imagination into Words
               </Text>
-              <View style={{flexDirection: 'row'}}>
+              {/* <View style={{flexDirection: 'row'}}>
                 <Text style={styles.textStyle}>0 Following</Text>
                 <Text style={styles.textStyle}>0 Followers</Text>
-              </View>
+              </View> */}
               {authContextData.user.email !== userEmail && (
                 <TouchableOpacity
                   onPress={() => handleFollowingStatus()}
@@ -262,7 +262,7 @@ const profileHeader = ({authorEmail}) => {
                       borderRadius: 50,
                       width: '50%',
                     }}>
-                    {console.log(following)}
+                    {/* {console.log(following)} */}
                     {!following && (
                       <Text style={styles.textStyle2}>Follow</Text>
                     )}

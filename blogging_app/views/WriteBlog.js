@@ -58,12 +58,19 @@ const writeBlog = ({navigation}) => {
 
   return (
     <View style={styles.outerView}>
-      <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-        <Icon name="angle-left" size={45} color="#eca72c" style={styles.icon} />
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
-        <Text style={styles.text1}>Upload</Text>
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <Icon
+            name="angle-left"
+            size={45}
+            color="#eca72c"
+            style={styles.icon}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
+          <Text style={styles.text1}>Upload</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.headView}>
         <Icon name="bookmark" size={45} color="#eca72c" />

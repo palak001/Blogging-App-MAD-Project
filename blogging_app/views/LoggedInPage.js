@@ -23,7 +23,6 @@ const LoggedInPage = ({navigation}) => {
 
   useEffect(() => {
     const blogRef = ref(database, 'all-blogs');
-
     onValue(
       blogRef,
       snapshot => {
