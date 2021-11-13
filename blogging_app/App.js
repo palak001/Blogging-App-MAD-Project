@@ -11,6 +11,7 @@ import LoggedInPage from './views/LoggedInPage';
 import profileHeader from './views/ProfileHeader';
 import TextEditor from './views/TextEditor';
 import Toast from 'react-native-toast-message';
+import toastConfig from './styles/toastConfig';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,7 +61,7 @@ const app = () => {
         </NavigationContainer>
       </ThemeProvider>
     </AuthProvider>
-    <Toast/>
+    <Toast config={toastConfig}/>
 
     </>
   );
