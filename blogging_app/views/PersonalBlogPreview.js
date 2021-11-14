@@ -17,11 +17,12 @@ const blogPreview = ({blog}) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (blog && blog['authorEmail']) {
       const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
       const userRef = ref(database, 'users/' + email);
-      onValue(
+      // console.log('blogs: ', blog);
+      await onValue(
         userRef,
         snapshot => {
           setAuthorData(snapshot.val());

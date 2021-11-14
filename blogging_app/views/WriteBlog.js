@@ -8,6 +8,7 @@ import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, push, child, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import uuid from 'react-native-uuid';
+import textEditorStyles from '../styles/textEditorStyles';
 
 const writeBlog = ({navigation}) => {
   const context = useContext(authContext);
@@ -67,8 +68,11 @@ const writeBlog = ({navigation}) => {
             style={styles.icon}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.btn1} onPress={() => uploadBlog()}>
+        {/* <TouchableOpacity onPress={() => uploadBlog()}>
           <Text style={styles.text1}>Upload</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity onPress={() => uploadBlog()}>
+          <Text style={textEditorStyles.textStyle}>Publish</Text>
         </TouchableOpacity>
       </View>
 

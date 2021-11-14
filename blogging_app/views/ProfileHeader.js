@@ -53,16 +53,19 @@ const profileHeader = ({authorEmail}) => {
           let userList = [];
           if (snapshot) {
             userList = snapshot.val();
+            // console.log('userList: ', snapshot.val());
             // author's profile
-            setUserProfile(userList[email]);
-            // my profile
-            let myEmail = authContextData.user.email.replace(/\./g, ',');
-            let myProfile = userList[myEmail];
-            if (
-              myProfile.following &&
-              myProfile.following.includes(userList[email].userId)
-            ) {
-              setFollowing(true);
+            if (userList && userList[email]) {
+              setUserProfile(userList[email]);
+              // my profile
+              let myEmail = authContextData.user.email.replace(/\./g, ',');
+              let myProfile = userList[myEmail];
+              if (
+                myProfile.following &&
+                myProfile.following.includes(userList[email].userId)
+              ) {
+                setFollowing(true);
+              }
             }
           }
         },
