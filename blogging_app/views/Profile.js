@@ -52,26 +52,28 @@ const profile = ({navigation, route}) => {
               let newArray = [...Data];
               newArray[0].authorEmail = userObj.email;
               // setData(newArray);
+              let blogKeys = [];
               if (blogList) {
-                const blogKeys = Object.keys(blogList);
-                const allBlogsRef = ref(database, 'all-blogs');
-
-                await onValue(
-                  allBlogsRef,
-                  snap => {
-                    const allBlogList = snap.val();
-                    blogKeys.map(key => {
-                      let obj = allBlogList[`${key}`];
-                      obj['id'] = key;
-                      newArray.push(obj);
-                      // setData([...Data, obj]);
-                    });
-                  },
-                  {onlyOnce: true},
-                );
-
-                setData(newArray);
+                blogKeys = Object.keys(blogList);
               }
+
+              const allBlogsRef = ref(database, 'all-blogs');
+
+              await onValue(
+                allBlogsRef,
+                snap => {
+                  const allBlogList = snap.val();
+                  blogKeys.map(key => {
+                    let obj = allBlogList[`${key}`];
+                    obj['id'] = key;
+                    newArray.push(obj);
+                    // setData([...Data, obj]);
+                  });
+                },
+                {onlyOnce: true},
+              );
+
+              setData(newArray);
             }
           },
           {onlyOnce: true},
