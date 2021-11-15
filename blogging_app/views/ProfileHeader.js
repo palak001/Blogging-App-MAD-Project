@@ -125,12 +125,11 @@ const profileHeader = ({authorEmail}) => {
         if (showOptions) setShowOptions(false);
       }}>
       <View>
-        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+        {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Icon name="angle-left" size={35} color="#eca72c" style={styles.backIcon} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View style={styles.headerIconStyle}>
           <View style={{flexDirection: 'row'}}>
-            
             <TouchableOpacity
               onPress={() =>
                 themeContextData.theme === 'dark'

@@ -83,4 +83,4 @@ const textEditor = () => {
   );
 };
 
-export default editorScreen;
+export default textEditor;
