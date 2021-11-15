@@ -12,6 +12,7 @@ import {AuthProvider} from './Context/AuthContext';
 import {ThemeProvider} from './Context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
 import profileHeader from './views/ProfileHeader';
+import OldTextEditor from './views/OldTextEditor';
 import TextEditor from './views/TextEditor';
 
 const Stack = createNativeStackNavigator();
@@ -50,6 +51,11 @@ const app = () => {
             <Stack.Screen
               name="ProfileHeader"
               component={profileHeader}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="OldTextEditor"
+              component={OldTextEditor}
               options={{headerShown: false}}
             />
             <Stack.Screen
