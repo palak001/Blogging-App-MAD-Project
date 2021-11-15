@@ -5,16 +5,15 @@ import {
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from './theme';
 
-
 const styles = StyleSheet.create({
   // a: {
   //   fontWeight: "bold",
   //   color: bg,
-   
+
   // },
   // div: {
   //   fontFamily: "monospace",
-    
+
   // },
   // p: {
   //   fontSize: hp(4),
@@ -29,14 +28,14 @@ const styles = StyleSheet.create({
     backgroundColor: marigold,
   },
   tib: {
-    textAlign: "center",
+    textAlign: 'center',
     color: bg,
-    fontSize: hp(3),
-    fontWeight: "bold"
+    fontSize: hp(2),
+    fontWeight: 'bold',
   },
   contentStyle: {
     backgroundColor: bg,
-    color: lgrey, 
+    color: lgrey,
   },
   textStyle: {
     color: marigold,
@@ -44,29 +43,29 @@ const styles = StyleSheet.create({
     fontSize: hp('3'),
     fontFamily: 'Lato',
     marginTop: hp(1.5),
-    marginRight: hp(2)
-  }, 
+    marginRight: hp(2),
+  },
   backIcon: {
     marginLeft: hp(2),
-    marginTop: hp(2)
-  }, 
+    marginTop: hp(2),
+  },
   large: {
     color: bg,
     fontSize: hp(3),
-    fontWeight: "bold"
+    fontWeight: 'bold',
   },
-  title : {
+  title: {
     // borderWidth: 1.5,
     width: wp('90'),
     height: hp('5'),
     // borderColor: marigold,
     borderRadius: hp('1.5'),
     color: marigold,
-    fontWeight : 'bold',
+    fontWeight: 'bold',
     fontFamily: 'Lato',
     fontSize: hp('3'),
-    padding: hp('0.75'), 
-    marginLeft: hp(1)    
+    padding: hp('0.75'),
+    marginLeft: hp(1),
   },
 });
 

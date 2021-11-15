@@ -44,18 +44,33 @@ const editorScreen = () => {
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
 
+  const getCurrentDate = () => {
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+
+    //Alert.alert(date + '-' + month + '-' + year);
+    console.log('Date: ', date + '-' + month + '-' + year);
+    return date + '-' + month + '-' + year; //format: dd-mm-yyyy;
+  };
+
   const uploadBlog = () => {
     const userId = context.user.uid;
     const uName = context.user.displayName;
     const postId = uuid.v4();
+    const uEmail = context.user.email;
 
     try {
       const postData = {
-        author: uName,
+        authorEmail: uEmail,
         userId: userId,
         body: blog.blogText,
         title: blog.title,
         likes: 0,
+        imageURL:
+          'https://s167.daydaynews.cc/?url=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F12009452680%2F1000',
+        date: getCurrentDate(),
+        postId: postId,
       };
 
       const newPostKey = push(
@@ -144,7 +159,7 @@ const editorScreen = () => {
         selectedIconTint={lgrey}
         disabledIconTint={bg}
         onPressAddImage={onPressAddImage}
-        iconSize={hp(4)}
+        iconSize={hp(2)}
         actions={[
           actions.keyboard,
           actions.setBold,
@@ -155,12 +170,12 @@ const editorScreen = () => {
           actions.heading2,
           actions.insertBulletsList,
           actions.insertOrderedList,
-          actions.insertImage,
+          // actions.insertImage,
           actions.undo,
           actions.redo,
           actions.insertLink,
         ]}
-        // map icons for self made actions
+        // // map icons for self made actions
         iconMap={{
           [actions.heading1]: () => <Text style={[styles.tib]}>H1</Text>,
           [actions.heading2]: () => <Text style={[styles.tib]}>H2</Text>,

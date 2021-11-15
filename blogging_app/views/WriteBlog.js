@@ -22,6 +22,16 @@ const writeBlog = ({navigation}) => {
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
 
+  const getCurrentDate = () => {
+    let date = new Date().getDate();
+    let month = new Date().getMonth() + 1;
+    let year = new Date().getFullYear();
+
+    //Alert.alert(date + '-' + month + '-' + year);
+    console.log('Date: ', date + '-' + month + '-' + year);
+    return date + '-' + month + '-' + year; //format: dd-mm-yyyy;
+  };
+
   const uploadBlog = () => {
     const userId = context.user.uid;
     const uEmail = context.user.email;
@@ -36,7 +46,7 @@ const writeBlog = ({navigation}) => {
         likes: 0,
         imageURL:
           'https://s167.daydaynews.cc/?url=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F12009452680%2F1000',
-        date: '10 September 2021',
+        date: getCurrentDate(),
         postId: postId,
       };
 
