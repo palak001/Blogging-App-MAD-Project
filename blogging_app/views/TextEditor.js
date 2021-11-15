@@ -28,6 +28,7 @@ import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, set, push, child, update} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import uuid from 'react-native-uuid';
+import Toast from 'react-native-toast-message';
 
 const editorScreen = () => {
   const navigation = useNavigation();
@@ -69,9 +70,20 @@ const editorScreen = () => {
       update(ref(database), updates);
 
       //add some popup message
+      Toast.show({
+        type: 'success',
+        text1: 'Success',
+        text2: 'Your post has successfully been published :)'
+      });
+
       navigation.navigate('Home');
     } catch (error) {
       console.log(error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Some error occurred :('
+      });
     }
   };
 
