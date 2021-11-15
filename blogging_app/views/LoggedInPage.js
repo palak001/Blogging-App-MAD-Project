@@ -77,10 +77,9 @@ const LoggedInPage = ({navigation}) => {
       <TouchableOpacity
         style={loggedInPageStyles.createPost}
         // basic text editor
-        onPress={() => navigation.navigate('WriteBlog')}>
-        {/* // Rich text editor  */}
-        {/* // onPress={() => navigation.navigate('TextEditor')}> */}
-        {/* // onPress={() => navigation.navigate('TextEditor')}> */}
+        // onPress={() => navigation.navigate('WriteBlog')}>
+        // {/* // Rich text editor  */}
+        onPress={() => navigation.navigate('TextEditor')}>
         <Icon name="pencil-square-o" size={25} />
       </TouchableOpacity>
     </View>

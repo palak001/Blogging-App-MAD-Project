@@ -1,14 +1,18 @@
 import React, {useContext, useState, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import styles from '../styles/blogStyles';
 import {authContext} from '../Context/AuthContext';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import {marigold} from '../styles/theme';
+import {marigold, lgrey} from '../styles/theme';
 import {useNavigation} from '@react-navigation/native';
 import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
+// import HTMLView from 'react-native-htmlview';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const blogPreview = ({blog}) => {
   const contextAuth = useContext(authContext);
@@ -59,6 +63,8 @@ const blogPreview = ({blog}) => {
       <View>
         <Text numberOfLines={3} style={styles.commentTxt}>
           {blog.body}
+          {/* {<HTMLView value={blog.body} stylesheet={textStyles} />} */}
+          {/* {console.log(blog)} */}
         </Text>
       </View>
       <View>
@@ -102,3 +108,14 @@ const blogPreview = ({blog}) => {
 };
 
 export default blogPreview;
+
+const textStyles = StyleSheet.create({
+  div: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+});

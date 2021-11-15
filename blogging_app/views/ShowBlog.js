@@ -5,6 +5,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 import writeBlogStyles from '../styles/writeBlogStyles';
 import blogStyles from '../styles/blogStyles';
@@ -15,12 +16,19 @@ import firebaseConfig from '../firebaseConfig';
 import {useContext} from 'react/cjs/react.development';
 import {authContext} from '../Context/AuthContext';
 import {useNavigation} from '@react-navigation/native';
+import HTMLView from 'react-native-htmlview';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import {lgrey, marigold, bg} from '../styles/theme';
 
 const showBlog = ({item}) => {
   const authContextData = useContext(authContext);
   const authorData = item.authorData;
   const navigation = useNavigation();
   const blog = item.blog;
+  const [finalBlog, setFinalBlog] = useState('');
   const [likedStatus, setLikedStatus] = useState(false);
   const [likesCount, setLikesCount] = useState();
   const firebaseApp = initializeApp(firebaseConfig);
@@ -104,6 +112,8 @@ const showBlog = ({item}) => {
 
   useEffect(() => {
     if (item && Object.keys(item.authorData).length !== 0) {
+      let newBlog = '<div>' + item.blog.body + '</div>';
+      setFinalBlog(newBlog);
       const blogRef = ref(database, 'all-blogs');
       onValue(
         blogRef,
@@ -197,7 +207,9 @@ const showBlog = ({item}) => {
           style={{
             paddingTop: 30,
           }}>
-          <Text style={writeBlogStyles.blogText}>{blog.body}</Text>
+          <Text style={{color: lgrey}}>
+            {<HTMLView value={finalBlog} stylesheet={styles} />}
+          </Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -205,3 +217,74 @@ const showBlog = ({item}) => {
 };
 
 export default showBlog;
+
+const styles = StyleSheet.create({
+  div: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+  img: {
+    height: hp(30),
+    width: wp(90),
+  },
+  p: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+  ol: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+  ul: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+  h1: {
+    width: wp('90'),
+    // height: hp('50'),
+    borderRadius: hp('1.5'),
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(4),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    fontWeight: 'bold',
+  },
+  h2: {
+    width: wp('90'),
+    // height: hp('50'),
+    borderRadius: hp('1.5'),
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(3.25),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    fontWeight: 'bold',
+  },
+  // a: {
+  //   fontWeight: 'bold',
+  //   color: bg,
+  // },
+  // div: {
+  //   fontFamily: 'monospace',
+  // },
+  // p: {
+  //   fontSize: hp(4),
+  // },
+});

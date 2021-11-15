@@ -1,7 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ScrollView,
+} from 'react-native';
 import textEditorStyles from '../styles/textEditorStyles';
-import {lgrey, marigold} from '../styles/theme';
+import {lgrey, bg, marigold} from '../styles/theme';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import ImagePicker from 'react-native-image-crop-picker';
 import {
@@ -25,7 +32,7 @@ const oldTextEditor = () => {
             name="angle-left"
             size={hp(4.5)}
             color={marigold}
-            style={styles.backIcon}
+            style={textEditorStyles.backIcon}
           />
         </TouchableOpacity>
         <View
@@ -43,6 +50,7 @@ const oldTextEditor = () => {
                 setImage(image.path);
               });
             }}>
+            {console.log(image)}
             <Icon name="picture-o" size={25} color="#eca72c" />
           </TouchableOpacity>
           <TouchableOpacity onPress={() => console.log(blog)}>
