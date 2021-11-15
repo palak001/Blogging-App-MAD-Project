@@ -25,7 +25,6 @@ const signup = ({navigation}) => {
     if (user) {
       navigation.navigate('Home');
     }
-    console.log(context.user);
   };
   return (
     <View style={styles.outerView}>

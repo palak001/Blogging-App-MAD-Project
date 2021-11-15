@@ -5,10 +5,14 @@ import Home from './views/Home';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Profile from './views/Profile';
+import WriteBlog from './views/WriteBlog';
+import ReadBlog from './views/ReadBlog';
+import ShowBlog from './views/ShowBlog';
 import {AuthProvider} from './Context/AuthContext';
 import {ThemeProvider} from './Context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
 import profileHeader from './views/ProfileHeader';
+import OldTextEditor from './views/OldTextEditor';
 import TextEditor from './views/TextEditor';
 import Toast from 'react-native-toast-message';
 import toastConfig from './styles/toastConfig';
@@ -53,8 +57,28 @@ const app = () => {
               options={{headerShown: false}}
             />
             <Stack.Screen
+              name="OldTextEditor"
+              component={OldTextEditor}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
               name="TextEditor"
               component={TextEditor}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="WriteBlog"
+              component={WriteBlog}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ReadBlog"
+              component={ReadBlog}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="ShowBlog"
+              component={ShowBlog}
               options={{headerShown: false}}
             />
           </Stack.Navigator>

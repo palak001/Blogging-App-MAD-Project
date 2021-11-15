@@ -1,29 +1,61 @@
-import React, {useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import styles from '../styles/blogStyles';
-import {authContext} from '../Context/AuthContext';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {initializeApp} from 'firebase/app';
+import {getDatabase, ref, onValue} from 'firebase/database';
+import firebaseConfig from '../firebaseConfig';
+import {useNavigation} from '@react-navigation/native';
 
 const recommendedBlogPreview = ({blog}) => {
-  const contextAuth = useContext(authContext);
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+  const [authorData, setAuthorData] = useState({});
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (blog && blog['authorEmail']) {
+      const email = blog['authorEmail'].replace(/\./g, ','); // replaced . by ,
+      const userRef = ref(database, 'users/' + email);
+      onValue(
+        userRef,
+        snapshot => {
+          setAuthorData(snapshot.val());
+        },
+        {onlyOnce: true},
+      );
+    }
+  }, [blog]);
+
   return (
-    <TouchableOpacity style={styles.smallPreview}>
-      <View style={{paddingTop: 10}}>
+    <TouchableOpacity
+      style={styles.smallPreview}
+      onPress={() => {
+        navigation.navigate('ReadBlog', {blog, authorData});
+      }}>
+      <View>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Image
-            style={styles.verySmallProfile}
-            source={{uri: contextAuth.user.photoURL}}
-          />
-          <Text style={styles.commentTxt}>Palak </Text>
-          <Text style={styles.smallTxt}> • </Text>
-          <Text style={styles.commentTxt}> {blog.date}</Text>
+          {authorData && (
+            <>
+              <Image
+                style={styles.verySmallProfile}
+                source={{uri: authorData.photoUrl}}
+              />
+              <Text style={styles.commentTxt}>{authorData.author} </Text>
+              <Text style={styles.smallTxt}> • </Text>
+              <Text style={styles.commentTxt}> {blog.date}</Text>
+            </>
+          )}
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{width: '60%'}}>
             <Text style={styles.smallTitle}>{blog.title}</Text>
           </View>
           <View>
-            <Image style={styles.smallPreviewImage} source={{uri: blog.url}} />
+            <Image
+              style={styles.smallPreviewImage}
+              source={{uri: blog.imageURL}}
+            />
           </View>
         </View>
       </View>
