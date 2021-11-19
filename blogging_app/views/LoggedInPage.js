@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {View, Text, Image, TouchableOpacity, FlatList} from 'react-native'
+import {View, Text, Image, TouchableOpacity, FlatList, TouchableHighlight} from 'react-native'
 import Icon from 'react-native-vector-icons/dist/FontAwesome'
 import {useContext} from 'react/cjs/react.development'
 import {authContext} from '../Context/AuthContext'
@@ -54,10 +54,11 @@ const LoggedInPage = ({navigation}) => {
 
   return (
     <>
-      <View style={loggedInPageStyles.outerView}>
-        {drawer ? <SideDrawer onCloseDrawer={ () => setdrawer(false)} /> : <></>}
+      {drawer===true ? <SideDrawer onCloseDrawer={ () => setdrawer(false)} /> : <></>}
 
+      <View style={[loggedInPageStyles.outerView, drawer ? {opacity: 0.8} : {opacity: 1}]}>
 
+    
         <View
           style={{
             flexDirection: 'row',
@@ -95,13 +96,17 @@ const LoggedInPage = ({navigation}) => {
           navigation={navigation}
         />
 
-        {!drawer && 
+        
+        {!drawer ? 
           <TouchableOpacity
             style={loggedInPageStyles.createPost}
             onPress={() => navigation.navigate('TextEditor')}>
             <Icon name='pencil-square-o' size={25} />
-          </TouchableOpacity>
+          </TouchableOpacity> 
+          : null
         }
+        
+        
        
       </View>
     </>

@@ -8,12 +8,7 @@ export default function SideDrawer ({onCloseDrawer}) {
     return(
         <>
             <View style={styles.outerView}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}>
+                <View style={styles.header}>
                     <TouchableOpacity onPress={() => onCloseDrawer()}>
                         <Icon name='navicon' size={25} color='#eca72c' />
                     </TouchableOpacity>
@@ -27,10 +22,30 @@ export default function SideDrawer ({onCloseDrawer}) {
                     
                 
                 </View>
+
+                <View style={styles.menu}>
+                    <TouchableOpacity >
+                        <Text style={styles.menuItems}>FAQs</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <Text style={styles.menuItems}>Send a Feedback</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity >
+                        <Text style={styles.menuItems}>About Us</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         </>
     );
 
 
+};
+
+SideDrawer.options = (props) => {
+  return {
+    overlay: {
+      interceptTouchOutside: true,
+    },
+  };
 };
 

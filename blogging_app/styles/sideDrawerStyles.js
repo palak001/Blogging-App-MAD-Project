@@ -10,13 +10,18 @@ const styles = StyleSheet.create({
         width: wp(80),
         height: hp(100),
         backgroundColor: bg,
-        borderColor: 'yellow',
-        borderWidth: hp(1)
-          
+        zIndex: 1,
+        position: 'absolute',           
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: hp(1.5),
+        paddingLeft: hp(1.5),
     },
     navHeadView: {
         flexDirection: 'row',
-        // justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
     },
@@ -26,6 +31,14 @@ const styles = StyleSheet.create({
         color: marigold,
         fontFamily: 'Sofia',
     },
+    menu: {
+       paddingTop: hp(2),
+    },
+    menuItems:{
+        fontSize: hp('3'),
+        paddingLeft: hp(2),
+        color: lgrey,
+    }
 
 });
 
