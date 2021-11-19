@@ -53,33 +53,30 @@ const profile = ({navigation, route}) => {
               let newArray = [...Data];
               newArray[0].authorEmail = userObj.email;
               // setData(newArray);
-              console.log('blogList: ', blogList);
-
+              let blogKeys = [];
               if (blogList) {
-                const blogKeys = Object.keys(blogList);
-                const allBlogsRef = ref(database, 'all-blogs');
-
-                await onValue(
-                  allBlogsRef,
-                  snap => {
-                    const allBlogList = snap.val();
-                    blogKeys.map(key => {
-                      let obj = allBlogList[`${key}`];
-                      obj['id'] = key;
-                      newArray.push(obj);
-                      // setData([...Data, obj]);
-                    });
-                  },
-                  {onlyOnce: true},
-                );
-
-                setData(newArray);
-                console.log('Data1: ', Data);
-
+                blogKeys = Object.keys(blogList);
               }
+
+              const allBlogsRef = ref(database, 'all-blogs');
+
+              await onValue(
+                allBlogsRef,
+                snap => {
+                  const allBlogList = snap.val();
+                  blogKeys.map(key => {
+                    let obj = allBlogList[`${key}`];
+                    obj['id'] = key;
+                    newArray.push(obj);
+                    // setData([...Data, obj]);
+                  });
+                },
+                {onlyOnce: true},
+              );
+
+              setData(newArray);
             }
-            console.log('Data2: ', Data);
-            console.log('Data[0][authorEmail]', Data[0]['authorEmail']);
+        
           },
           {onlyOnce: true},
         );
@@ -90,7 +87,7 @@ const profile = ({navigation, route}) => {
 
   return (
     <>
-      {(console.log('Data3: ', Data)) && Data[0]['authorEmail'] !== '' && (
+      {Data[0]['authorEmail'] !== '' && (
         <View style={styles.outerView}>
           {/* Your profile */}
           {/* {console.log('Data: ', Data)} */}
