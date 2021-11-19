@@ -23,6 +23,11 @@ const styles = StyleSheet.create({
     bottom: 35,
     right: 20,
   },
+  animatedBox: {
+    flex: 1,
+    backgroundColor: "#38C8EC",
+    padding: hp('10')
+  },
 });
 
 export default styles;

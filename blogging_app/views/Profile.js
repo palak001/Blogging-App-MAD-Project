@@ -10,6 +10,7 @@ import {authContext} from '../Context/AuthContext';
 
 const renderItem = ({item}) => {
   if (item.authorEmail !== '') {
+    console.log("item.postId: ", item.postId)
     if (item.postId == 0) {
       return <ProfileHeader authorEmail={item.authorEmail} />;
     } else {
@@ -25,7 +26,7 @@ const profile = ({navigation, route}) => {
   const [userProfile, setUserProfile] = useState({});
   const [Data, setData] = useState([{postId: 0, authorEmail: ''}]);
   const [blogList, setBlogList] = useState([]);
-
+  
   useEffect(() => {
     const user = route.params;
     const userRef = ref(database, 'users');
@@ -52,6 +53,8 @@ const profile = ({navigation, route}) => {
               let newArray = [...Data];
               newArray[0].authorEmail = userObj.email;
               // setData(newArray);
+              console.log('blogList: ', blogList);
+
               if (blogList) {
                 const blogKeys = Object.keys(blogList);
                 const allBlogsRef = ref(database, 'all-blogs');
@@ -71,8 +74,12 @@ const profile = ({navigation, route}) => {
                 );
 
                 setData(newArray);
+                console.log('Data1: ', Data);
+
               }
             }
+            console.log('Data2: ', Data);
+            console.log('Data[0][authorEmail]', Data[0]['authorEmail']);
           },
           {onlyOnce: true},
         );
@@ -83,7 +90,7 @@ const profile = ({navigation, route}) => {
 
   return (
     <>
-      {Data[0]['authorEmail'] !== '' && (
+      {(console.log('Data3: ', Data)) && Data[0]['authorEmail'] !== '' && (
         <View style={styles.outerView}>
           {/* Your profile */}
           {/* {console.log('Data: ', Data)} */}
