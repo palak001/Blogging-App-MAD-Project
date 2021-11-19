@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     bottom: 35,
     right: 20,
   },
+
 });
 
 export default styles;
