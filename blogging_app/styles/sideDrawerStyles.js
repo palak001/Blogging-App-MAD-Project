@@ -35,10 +35,11 @@ const styles = StyleSheet.create({
        paddingTop: hp(2),
     },
     menuItems:{
-        fontSize: hp('3'),
+        fontSize: hp('2.5'),
         paddingLeft: hp(2),
         color: lgrey,
-        fontFamily: 'Poppins-Regular',
+        paddingTop: hp(2),
+        // fontFamily: 'Poppins-Regular',
     }
 
 });

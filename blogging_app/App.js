@@ -8,6 +8,9 @@ import Profile from './views/Profile';
 import WriteBlog from './views/WriteBlog';
 import ReadBlog from './views/ReadBlog';
 import ShowBlog from './views/ShowBlog';
+import Faqs from './views/Faqs';
+import Feedback from './views/Feedback';
+import AboutUs from './views/AboutUs';
 import {AuthProvider} from './Context/AuthContext';
 import {ThemeProvider} from './Context/ThemeContext';
 import LoggedInPage from './views/LoggedInPage';
@@ -79,6 +82,21 @@ const app = () => {
             <Stack.Screen
               name="ShowBlog"
               component={ShowBlog}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Faqs"
+              component={Faqs}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Feedback"
+              component={Feedback}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="AboutUs"
+              component={AboutUs}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
