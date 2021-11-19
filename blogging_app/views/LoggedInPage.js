@@ -11,6 +11,8 @@ import {initializeApp} from 'firebase/app'
 import {getDatabase, ref, onValue} from 'firebase/database'
 import firebaseConfig from '../firebaseConfig'
 import SideDrawer from '../components/SideDrawer'
+import MyText from '../components/MyText'
+
 
 const renderItem = ({item}) => {
   return <RecommendedBlogPreview blog={item} />

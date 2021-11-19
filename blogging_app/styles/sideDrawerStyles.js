@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         fontSize: hp('3'),
         paddingLeft: hp(2),
         color: lgrey,
+        fontFamily: 'Poppins-Regular',
     }
 
 });

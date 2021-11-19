@@ -41,11 +41,5 @@ export default function SideDrawer ({onCloseDrawer}) {
 
 };
 
-SideDrawer.options = (props) => {
-  return {
-    overlay: {
-      interceptTouchOutside: true,
-    },
-  };
-};
+
 
