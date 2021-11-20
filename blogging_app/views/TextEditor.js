@@ -19,7 +19,6 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-
 import {lgrey, marigold, bg} from '../styles/theme';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {useNavigation} from '@react-navigation/native';

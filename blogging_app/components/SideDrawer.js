@@ -28,13 +28,22 @@ export default function SideDrawer ({onCloseDrawer}) {
                 </View>
 
                 <View style={styles.menu}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Faqs')}>
+                    <TouchableOpacity onPress={() => {
+                        onCloseDrawer();
+                        navigation.navigate('Faqs');
+                    }}>
                         <Text style={styles.menuItems}>FAQs</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('Feedback')}>
+                    <TouchableOpacity onPress={() => {
+                        onCloseDrawer();
+                        navigation.navigate('Feedback');
+                    }}>
                         <Text style={styles.menuItems}>Send a Feedback</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => navigation.navigate('AboutUs')}>
+                    <TouchableOpacity onPress={() => {
+                        onCloseDrawer();
+                        navigation.navigate('AboutUs');
+                    }}>
                         <Text style={styles.menuItems}>About Us</Text>
                     </TouchableOpacity>
                 </View>
