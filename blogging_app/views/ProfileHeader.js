@@ -242,13 +242,14 @@ const profileHeader = ({authorEmail}) => {
               )}
             </View>
             <View style={styles.alignment}>
+              {console.log('userProfile: ', userProfile)}
               {userProfile && userEmail === authContextData.user.email && (
-                <Text style={styles.appName}>{userProfile.author}</Text>
-              )}
-              {userProfile && userEmail !== authContextData.user.email && (
                 <Text style={styles.appName}>
                   {authContextData.user.displayName}
                 </Text>
+              )}
+              {userProfile && userEmail !== authContextData.user.email && (
+                <Text style={styles.appName}>{userProfile.author}</Text>
               )}
               <Text style={styles.headText}>
                 Weave your Imagination into Words
