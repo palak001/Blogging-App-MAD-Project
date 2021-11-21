@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,8 @@ import {
   TouchableWithoutFeedback,
   TouchableOpacity,
   StyleSheet,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import writeBlogStyles from '../styles/writeBlogStyles';
 import blogStyles from '../styles/blogStyles';
@@ -22,6 +24,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import {lgrey, marigold, bg} from '../styles/theme';
+import {RichEditor} from 'react-native-pell-rich-editor';
 
 const showBlog = ({item}) => {
   const authContextData = useContext(authContext);
@@ -36,6 +39,8 @@ const showBlog = ({item}) => {
   const userRef = ref(database, 'users');
   const loggedInUserEmail = authContextData.user.email.replace(/\./g, ',');
   const [likeButtonDisabled, setLikeButtonDisabled] = useState(false);
+  const RichText = useRef();
+  const scrollRef = useRef();
 
   const handleLikedStatus = async () => {
     setLikeButtonDisabled(true);
@@ -113,6 +118,9 @@ const showBlog = ({item}) => {
   useEffect(() => {
     if (item && Object.keys(item.authorData).length !== 0) {
       let newBlog = '<div>' + item.blog.body + '</div>';
+      newBlog = newBlog.replace(/\\"/g, '"'); // replaced . by ,
+      console.log('item.blog.body: ', item.blog.body);
+      console.log('newBlogs: ', newBlog);
       setFinalBlog(newBlog);
       const blogRef = ref(database, 'all-blogs');
       onValue(
@@ -129,90 +137,108 @@ const showBlog = ({item}) => {
     }
   }, [item]);
 
+  const editorInitializedCallback = () => {
+    RichText.current?.registerToolbar(function (items) {
+      // items contain all the actions that are currently active
+      console.log(
+        'Toolbar click, selected items (insert end callback):',
+        items,
+      );
+    });
+  };
+
+  handleCursorPosition = scrollY => {
+    // Positioning scroll bar
+    scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
+  };
+
   return (
-    <TouchableWithoutFeedback style={{flex: 1}} onPress={() => {}}>
-      <View style={writeBlogStyles.group}>
-        <View style={{paddingTop: 15}}>
-          <Text style={writeBlogStyles.title}>{blog.title}</Text>
-        </View>
-        <View
-          style={{
-            width: '90%',
-            paddingTop: 15,
-          }}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('Profile', {
-                userEmail: blog.authorEmail,
-              });
-            }}
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'flex-start',
-              alignItems: 'center',
-            }}>
-            <Image
-              style={blogStyles.verySmallProfile}
-              source={{uri: authorData.photoUrl}}
-            />
-            <Text style={writeBlogStyles.label}>{authorData.author} </Text>
-            <Text style={blogStyles.smallTxt}> • </Text>
-            <Text style={blogStyles.commentTxt}> {blog.date}</Text>
-          </TouchableOpacity>
-          <View
-            style={{flexDirection: 'row', paddingRight: 10, paddingTop: 10}}>
-            <View
+    <SafeAreaView>
+      <TouchableWithoutFeedback style={{flex: 1}} onPress={() => {}}>
+        <View style={writeBlogStyles.group}>
+          <View style={{paddingTop: 15}}>
+            <Text style={writeBlogStyles.title}>{blog.title}</Text>
+          </View>
+          <View style={{width: '90%', paddingTop: 15}}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Profile', {
+                  userEmail: blog.authorEmail,
+                });
+              }}
               style={{
-                alignContent: 'flex-end',
-                alignItems: 'flex-end',
-                justifyContent: 'flex-end',
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
               }}>
-              {likedStatus && (
-                <TouchableOpacity
-                  disabled={likeButtonDisabled}
-                  onPress={() => handleLikedStatus()}>
-                  <Icon
-                    name="heart"
-                    size={15}
-                    color="#eca72c"
-                    style={blogStyles.icon}
-                  />
-                </TouchableOpacity>
-              )}
-              {!likedStatus && (
-                <TouchableOpacity
-                  disabled={likeButtonDisabled}
-                  onPress={() => handleLikedStatus()}>
-                  <Icon
-                    name="heart-o"
-                    size={15}
-                    color="#eca72c"
-                    style={blogStyles.icon}
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-            <View>
-              <Text style={blogStyles.commentTxt}>{likesCount} likes</Text>
+              <Image
+                style={blogStyles.verySmallProfile}
+                source={{uri: authorData.photoUrl}}
+              />
+              <Text style={writeBlogStyles.label}>{authorData.author} </Text>
+              <Text style={blogStyles.smallTxt}> • </Text>
+              <Text style={blogStyles.commentTxt}> {blog.date}</Text>
+            </TouchableOpacity>
+            <View
+              style={{flexDirection: 'row', paddingRight: 10, paddingTop: 10}}>
+              <View
+                style={{
+                  alignContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  justifyContent: 'flex-end',
+                }}>
+                {likedStatus && (
+                  <TouchableOpacity
+                    disabled={likeButtonDisabled}
+                    onPress={() => handleLikedStatus()}>
+                    <Icon
+                      name="heart"
+                      size={15}
+                      color="#eca72c"
+                      style={blogStyles.icon}
+                    />
+                  </TouchableOpacity>
+                )}
+                {!likedStatus && (
+                  <TouchableOpacity
+                    disabled={likeButtonDisabled}
+                    onPress={() => handleLikedStatus()}>
+                    <Icon
+                      name="heart-o"
+                      size={15}
+                      color="#eca72c"
+                      style={blogStyles.icon}
+                    />
+                  </TouchableOpacity>
+                )}
+              </View>
+              <View>
+                <Text style={blogStyles.commentTxt}>{likesCount} likes</Text>
+              </View>
             </View>
           </View>
+
+          <ScrollView
+            keyboardDismissMode={'none'}
+            ref={scrollRef}
+            nestedScrollEnabled={true}
+            scrollEventThrottle={20}>
+            <View style={{width: wp(90)}}>
+              <RichEditor
+                ref={RichText}
+                initialContentHTML={finalBlog}
+                style={styles.rich}
+                editorStyle={styles.contentStyle}
+                editorInitializedCallback={editorInitializedCallback}
+                disabled={true}
+                initialHeight={hp(60)}
+                onCursorPosition={handleCursorPosition}
+              />
+            </View>
+          </ScrollView>
         </View>
-        <View style={{paddingTop: 10}}>
-          <Image
-            source={{uri: blog.imageURL}}
-            style={blogStyles.previewImage}
-          />
-        </View>
-        <View
-          style={{
-            paddingTop: 30,
-          }}>
-          <Text style={{color: lgrey}}>
-            {<HTMLView value={finalBlog} stylesheet={styles} />}
-          </Text>
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback>
+    </SafeAreaView>
   );
 };
 
@@ -277,14 +303,22 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     fontWeight: 'bold',
   },
-  // a: {
-  //   fontWeight: 'bold',
-  //   color: bg,
-  // },
-  // div: {
-  //   fontFamily: 'monospace',
-  // },
-  // p: {
-  //   fontSize: hp(4),
-  // },
+  rich: {
+    minHeight: hp(60),
+    flex: 1,
+    // backgroundColor: lgrey
+    backgroundColor: bg,
+    lineHeight: hp(4.5),
+    fontSize: hp(2.75),
+
+    fontFamily: 'Lato',
+  },
+  contentStyle: {
+    backgroundColor: bg,
+    color: lgrey,
+    lineHeight: hp(4.5),
+    fontSize: hp(2.75),
+
+    fontFamily: 'Lato',
+  },
 });
