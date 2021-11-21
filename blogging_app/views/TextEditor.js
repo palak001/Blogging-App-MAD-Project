@@ -6,6 +6,11 @@ import {
   View,
   TouchableOpacity,
   TextInput,
+  Modal,
+  Pressable,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
 } from 'react-native';
 import {
   actions,
@@ -13,7 +18,6 @@ import {
   RichEditor,
   RichToolbar,
 } from 'react-native-pell-rich-editor';
-import HTMLView from 'react-native-htmlview';
 import styles from '../styles/textEditorStyles';
 import {
   widthPercentageToDP as wp,
@@ -32,15 +36,20 @@ import Toast from 'react-native-toast-message';
 const editorScreen = () => {
   const navigation = useNavigation();
   const context = useContext(authContext);
-
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
   const RichText = useRef();
-
-  // const [article, setArticle] = useState("");
+  const scrollRef = useRef();
   const [blog, setBlog] = useState({
     title: '',
     blogText: '',
   });
-
+  const [imageLink, setImageLink] = useState(
+    'https://cdn.vox-cdn.com/thumbor/Jb2X5lJUrIJtKw9eI3hbSYurZyU=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/22449912/DS_Still_21.jpg',
+  );
+  const [imagePreviewLink, setImagePreviewLink] = useState(
+    'https://i.pinimg.com/564x/2b/3f/57/2b3f5792a11d57dd6e8d2691493c23e8.jpg',
+  );
   const firebaseApp = initializeApp(firebaseConfig);
   const database = getDatabase(firebaseApp);
 
@@ -48,9 +57,6 @@ const editorScreen = () => {
     let date = new Date().getDate();
     let month = new Date().getMonth() + 1;
     let year = new Date().getFullYear();
-
-    //Alert.alert(date + '-' + month + '-' + year);
-    console.log('Date: ', date + '-' + month + '-' + year);
     return date + '-' + month + '-' + year; //format: dd-mm-yyyy;
   };
 
@@ -67,8 +73,7 @@ const editorScreen = () => {
         body: blog.blogText,
         title: blog.title,
         likes: 0,
-        imageURL:
-          'https://s167.daydaynews.cc/?url=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F12009452680%2F1000',
+        imageURL: imagePreviewLink,
         date: getCurrentDate(),
         postId: postId,
       };
@@ -87,7 +92,7 @@ const editorScreen = () => {
       Toast.show({
         type: 'success',
         text1: 'Success',
-        text2: 'Your post has successfully been published :)'
+        text2: 'Your post has successfully been published :)',
       });
 
       navigation.navigate('Home');
@@ -96,7 +101,7 @@ const editorScreen = () => {
       Toast.show({
         type: 'error',
         text1: 'Error',
-        text2: 'Some error occurred :('
+        text2: 'Some error occurred :(',
       });
     }
   };
@@ -112,18 +117,29 @@ const editorScreen = () => {
   };
 
   const onPressAddImage = () => {
-    // you can easily add images from your gallery
-    RichText.current?.insertImage(
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/100px-React-icon.svg.png',
-    );
+    setModalVisible(true);
+    console.log('Model show: ');
   };
+
+  handleCursorPosition = scrollY => {
+    // Positioning scroll bar
+    scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
+  };
+
   return (
-    <ScrollView style={{backgroundColor: bg}}>
+    <ScrollView
+      // stickyHeaderIndices={[0]}
+      ref={scrollRef}
+      nestedScrollEnabled={true}
+      scrollEventThrottle={20}
+      style={{backgroundColor: bg}}>
+      {/* <View style={{height: hp(95)}}> */}
       <View
         style={{
           backgroundColor: bg,
           justifyContent: 'space-between',
           flexDirection: 'row',
+          position: 'relative',
         }}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Icon
@@ -133,7 +149,7 @@ const editorScreen = () => {
             style={styles.backIcon}
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => uploadBlog()}>
+        <TouchableOpacity onPress={() => setModal2Visible(true)}>
           <Text style={styles.textStyle}>Publish</Text>
         </TouchableOpacity>
       </View>
@@ -170,7 +186,7 @@ const editorScreen = () => {
         selectedIconTint={lgrey}
         disabledIconTint={bg}
         onPressAddImage={onPressAddImage}
-        iconSize={hp(2)}
+        iconSize={hp(1.75)}
         actions={[
           actions.keyboard,
           actions.setBold,
@@ -181,21 +197,100 @@ const editorScreen = () => {
           actions.heading2,
           actions.insertBulletsList,
           actions.insertOrderedList,
-          // actions.insertImage,
+          actions.insertImage,
           actions.undo,
           actions.redo,
           actions.insertLink,
         ]}
-        // // map icons for self made actions
+        // map icons for self made actions
         iconMap={{
           [actions.heading1]: () => <Text style={[styles.tib]}>H1</Text>,
           [actions.heading2]: () => <Text style={[styles.tib]}>H2</Text>,
         }}
       />
 
-      {/* <HTMLView value={article} stylesheet={textEditorStyles} /> */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput
+              placeholder="Enter image link"
+              // autoFocus={true}
+              selectTextOnFocus={true}
+              onChangeText={setImageLink}
+              style={{
+                width: wp(50),
+                borderBottomColor: marigold,
+                borderBottomWidth: hp(0.25),
+              }}
+            />
+            <Pressable
+              style={styles.btn1}
+              onPress={() => {
+                console.log(imageLink);
+                setModalVisible(!modalVisible);
+                // you can easily add images from your gallery
+                RichText.current?.insertImage(imageLink);
+              }}>
+              <Text style={styles.textStyle2}>Add</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modal2Visible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modal2Visible);
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput
+              placeholder="Enter Preview image link"
+              // autoFocus={true}
+              selectTextOnFocus={true}
+              onChangeText={setImagePreviewLink}
+              style={{
+                width: wp(50),
+                borderBottomColor: marigold,
+                borderBottomWidth: hp(0.25),
+              }}
+            />
+            <Pressable
+              style={styles.btn1}
+              onPress={() => {
+                console.log(imagePreviewLink);
+                setModalVisible(!modal2Visible);
+                uploadBlog();
+              }}>
+              <Text style={styles.textStyle2}>Add</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+      {/* </View> */}
     </ScrollView>
   );
 };
 
 export default editorScreen;
+
+// Some image link address you might want to use (Copy-paste doesn't work :(
+
+// https://bit.ly/3CBN3Tp
+// https://bit.ly/3oLN8z0
+// https://bit.ly/3qWSz0H
+// https://bit.ly/3qWTmib
+// https://bit.ly/3nDEqDK
+// https://bit.ly/30HlbR1
+// https://bit.ly/329hO5t
+// https://bit.ly/30DdjPX

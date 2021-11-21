@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View, FlatList} from 'react-native';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 import writeBlogStyles from '../styles/writeBlogStyles';
 import ShowBlog from './ShowBlog';
 
@@ -29,7 +30,9 @@ const readBlog = ({route, navigation}) => {
         contentContainerStyle={{
           flexGrow: 2,
         }}
-        ListFooterComponent={<View style={{height: 30}} />}
+        ListFooterComponent={
+          <View style={{height: heightPercentageToDP(30)}} />
+        }
       />
     </View>
   );
