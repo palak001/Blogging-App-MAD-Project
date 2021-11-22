@@ -55,10 +55,7 @@ const profile = ({navigation, route}) => {
               let blogList = [];
               if (completeBlogList) {
                 blogList = completeBlogList[`${userObj.user.userId}`];
-                console.log(
-                  'palak: ',
-                  completeBlogList[`${userObj.user.userId}`],
-                );
+
                 if (completeBlogList[`${userObj.user.userId}`])
                   setShowComment(false);
               }
@@ -88,7 +85,6 @@ const profile = ({navigation, route}) => {
               );
 
               setData(newArray);
-              console.log('newArray: ', newArray);
             }
           },
           {onlyOnce: true},
@@ -113,7 +109,6 @@ const profile = ({navigation, route}) => {
           }}>
           <View>
             {/* Your profile */}
-            {console.log('Data: ', blogList)}
 
             <FlatList
               data={Data}
@@ -127,7 +122,6 @@ const profile = ({navigation, route}) => {
               alignItems: 'center',
               paddingTop: hp(5),
             }}>
-            {console.log('show comment: ', showComment)}
             {showComment && (
               <Text
                 style={{color: marigold, padding: 10, fontFamily: 'PTSans'}}>
