@@ -61,6 +61,7 @@ const signin = ({navigation}) => {
                 placeholder="Enter password"
                 placeholderTextColor="#eca72c"
                 style={styles.input}
+                secureTextEntry={true}
               />
             </View>
             <TouchableOpacity style={styles.btn1}>

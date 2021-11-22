@@ -61,6 +61,7 @@ const signup = ({navigation}) => {
             placeholder="Enter password"
             placeholderTextColor="#eca72c"
             style={styles.input}
+            secureTextEntry={true}
           />
         </View>
 
