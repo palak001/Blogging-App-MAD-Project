@@ -119,8 +119,8 @@ const showBlog = ({item}) => {
     if (item && Object.keys(item.authorData).length !== 0) {
       let newBlog = '<div>' + item.blog.body + '</div>';
       newBlog = newBlog.replace(/\\"/g, '"'); // replaced . by ,
-      console.log('item.blog.body: ', item.blog.body);
-      console.log('newBlogs: ', newBlog);
+      // console.log('item.blog.body: ', item.blog.body);
+      // console.log('newBlogs: ', newBlog);
       setFinalBlog(newBlog);
       const blogRef = ref(database, 'all-blogs');
       onValue(
@@ -231,7 +231,7 @@ const showBlog = ({item}) => {
                 editorStyle={styles.contentStyle}
                 editorInitializedCallback={editorInitializedCallback}
                 disabled={true}
-                initialHeight={hp(60)}
+                initialHeight={hp(140)}
                 onCursorPosition={handleCursorPosition}
               />
             </View>

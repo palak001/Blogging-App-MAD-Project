@@ -125,9 +125,6 @@ const profileHeader = ({authorEmail}) => {
         if (showOptions) setShowOptions(false);
       }}>
       <View>
-        {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-          <Icon name="angle-left" size={35} color="#eca72c" style={styles.backIcon} />
-        </TouchableOpacity> */}
         <View style={styles.headerIconStyle}>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
@@ -207,11 +204,11 @@ const profileHeader = ({authorEmail}) => {
             <TouchableOpacity
               onFocus={() => {
                 setShowOptions(!showOptions);
-                console.log(showOptions);
+                // console.log(showOptions);
               }}
               onPress={() => {
                 setShowOptions(!showOptions);
-                console.log(showOptions);
+                // console.log(showOptions);
               }}>
               <Icon
                 name="ellipsis-h"
@@ -242,7 +239,7 @@ const profileHeader = ({authorEmail}) => {
               )}
             </View>
             <View style={styles.alignment}>
-              {console.log('userProfile: ', userProfile)}
+              {/* {console.log('userProfile: ', userProfile)} */}
               {userProfile && userEmail === authContextData.user.email && (
                 <Text style={styles.appName}>
                   {authContextData.user.displayName}

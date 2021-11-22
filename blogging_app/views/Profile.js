@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, Text} from 'react-native';
 import styles from '../styles/profileStyles';
 import ProfileHeader from './ProfileHeader';
 import PersonalBlogPreview from './PersonalBlogPreview';
@@ -7,10 +7,15 @@ import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
 import {authContext} from '../Context/AuthContext';
+import {bg, marigold} from '../styles/theme';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 const renderItem = ({item}) => {
   if (item.authorEmail !== '') {
-    console.log("item.postId: ", item.postId)
+    console.log('item.postId: ', item.postId);
     if (item.postId == 0) {
       return <ProfileHeader authorEmail={item.authorEmail} />;
     } else {
@@ -26,7 +31,8 @@ const profile = ({navigation, route}) => {
   const [userProfile, setUserProfile] = useState({});
   const [Data, setData] = useState([{postId: 0, authorEmail: ''}]);
   const [blogList, setBlogList] = useState([]);
-  
+  const [showComment, setShowComment] = useState(true);
+
   useEffect(() => {
     const user = route.params;
     const userRef = ref(database, 'users');
@@ -45,11 +51,18 @@ const profile = ({navigation, route}) => {
           blogRef,
           async snapshot => {
             const completeBlogList = snapshot.val();
-
             if (userObj && userObj.user) {
               let blogList = [];
-              if (completeBlogList)
+              if (completeBlogList) {
                 blogList = completeBlogList[`${userObj.user.userId}`];
+                console.log(
+                  'palak: ',
+                  completeBlogList[`${userObj.user.userId}`],
+                );
+                if (completeBlogList[`${userObj.user.userId}`])
+                  setShowComment(false);
+              }
+
               let newArray = [...Data];
               newArray[0].authorEmail = userObj.email;
               // setData(newArray);
@@ -75,8 +88,8 @@ const profile = ({navigation, route}) => {
               );
 
               setData(newArray);
+              console.log('newArray: ', newArray);
             }
-        
           },
           {onlyOnce: true},
         );
@@ -86,21 +99,45 @@ const profile = ({navigation, route}) => {
   }, [route]);
 
   return (
-    <>
+    <View
+      style={{
+        backgroundColor: bg,
+        height: hp('100'),
+        flex: 1,
+        padding: 10,
+      }}>
       {Data[0]['authorEmail'] !== '' && (
-        <View style={styles.outerView}>
-          {/* Your profile */}
-          {/* {console.log('Data: ', Data)} */}
+        <View
+          style={{
+            justifyContent: 'space-around',
+          }}>
+          <View>
+            {/* Your profile */}
+            {console.log('Data: ', blogList)}
 
-          <FlatList
-            data={Data}
-            renderItem={renderItem}
-            keyExtractor={item => item.postId}
-            navigation={navigation}
-          />
+            <FlatList
+              data={Data}
+              renderItem={renderItem}
+              keyExtractor={item => item.postId}
+              navigation={navigation}
+            />
+          </View>
+          <View
+            style={{
+              alignItems: 'center',
+              paddingTop: hp(5),
+            }}>
+            {console.log('show comment: ', showComment)}
+            {showComment && (
+              <Text
+                style={{color: marigold, padding: 10, fontFamily: 'PTSans'}}>
+                You don't have any blogs yet!
+              </Text>
+            )}
+          </View>
         </View>
       )}
-    </>
+    </View>
   );
 };
 

@@ -1,66 +1,78 @@
-import React, {useEffect, useState} from 'react'
-import {View, Text, Image, TouchableOpacity, FlatList, TouchableHighlight} from 'react-native'
-import Icon from 'react-native-vector-icons/dist/FontAwesome'
-import {useContext} from 'react/cjs/react.development'
-import {authContext} from '../Context/AuthContext'
-import blogStyles from '../styles/blogStyles'
-import homeStyles from '../styles/homeStyles'
-import loggedInPageStyles from '../styles/loggedInPageStyles'
-import RecommendedBlogPreview from './RecommendedBlogPreview'
-import {initializeApp} from 'firebase/app'
-import {getDatabase, ref, onValue} from 'firebase/database'
-import firebaseConfig from '../firebaseConfig'
-import SideDrawer from '../components/SideDrawer'
-import MyText from '../components/MyText'
-
+import React, {useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  FlatList,
+  TouchableHighlight,
+} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import {useContext} from 'react/cjs/react.development';
+import {authContext} from '../Context/AuthContext';
+import blogStyles from '../styles/blogStyles';
+import homeStyles from '../styles/homeStyles';
+import loggedInPageStyles from '../styles/loggedInPageStyles';
+import RecommendedBlogPreview from './RecommendedBlogPreview';
+import {initializeApp} from 'firebase/app';
+import {getDatabase, ref, onValue} from 'firebase/database';
+import firebaseConfig from '../firebaseConfig';
+import SideDrawer from '../components/SideDrawer';
+import MyText from '../components/MyText';
 
 const renderItem = ({item}) => {
-  return <RecommendedBlogPreview blog={item} />
-}
+  return <RecommendedBlogPreview blog={item} />;
+};
 
 const LoggedInPage = ({navigation}) => {
-  const contextAuth = useContext(authContext)
-  const firebaseApp = initializeApp(firebaseConfig)
-  const database = getDatabase(firebaseApp)
-  const [recommendedBlogs, setRecommendedBlogs] = useState([])
+  const contextAuth = useContext(authContext);
+  const firebaseApp = initializeApp(firebaseConfig);
+  const database = getDatabase(firebaseApp);
+  const [recommendedBlogs, setRecommendedBlogs] = useState([]);
 
   useEffect(() => {
-    const blogRef = ref(database, 'all-blogs')
+    const blogRef = ref(database, 'all-blogs');
     onValue(
       blogRef,
       snapshot => {
-        const Data = []
-        const blogList = snapshot.val()
+        const Data = [];
+        const blogList = snapshot.val();
         if (blogList) {
           Object.keys(blogList).map(data => {
-            let obj = blogList[data]
-            obj['id'] = data
-            return Data.push(obj)
-          })
+            let obj = blogList[data];
+            obj['id'] = data;
+            return Data.push(obj);
+          });
         }
-        setRecommendedBlogs(Data)
+        setRecommendedBlogs(Data);
       },
       {onlyOnce: true},
-    )
-  }, [])
+    );
+  }, []);
 
-  const [drawer, setdrawer] = useState(false)
+  const [drawer, setdrawer] = useState(false);
 
   const toggleOpen = () => {
-    const drawerVal = drawer == false ? true : false
-    setdrawer(drawerVal)
-    console.log(drawer)
-  }
+    const drawerVal = drawer == false ? true : false;
+    setdrawer(drawerVal);
+    // console.log(drawer)
+  };
 
-  const drawerContent = () => {}
+  const drawerContent = () => {};
 
   return (
     <>
-      {drawer===true ? <SideDrawer onCloseDrawer={ () => setdrawer(false)} /> : <></>}
+      {drawer === true ? (
+        <SideDrawer onCloseDrawer={() => setdrawer(false)} />
+      ) : (
+        <></>
+      )}
 
-      <View style={[loggedInPageStyles.outerView, drawer ? {opacity: 0.8} : {opacity: 1}]}>
-
-    
+      <View
+        style={[
+          loggedInPageStyles.outerView,
+          drawer ? {opacity: 0.8} : {opacity: 1},
+        ]}>
         <View
           style={{
             flexDirection: 'row',
@@ -68,11 +80,11 @@ const LoggedInPage = ({navigation}) => {
             alignItems: 'center',
           }}>
           <TouchableOpacity onPress={() => toggleOpen()}>
-            <Icon name='navicon' size={25} color='#eca72c' />
+            <Icon name="navicon" size={25} color="#eca72c" />
           </TouchableOpacity>
 
           <View style={homeStyles.navHeadView}>
-            <Icon name='bookmark' size={20} color='#eca72c' />
+            <Icon name="bookmark" size={20} color="#eca72c" />
             <Text style={homeStyles.navAppName}>BLOGUE</Text>
           </View>
           <TouchableOpacity
@@ -88,7 +100,6 @@ const LoggedInPage = ({navigation}) => {
           </TouchableOpacity>
         </View>
 
-
         <Text style={blogStyles.commentTxt2}>Recommended Posts</Text>
 
         <FlatList
@@ -98,21 +109,16 @@ const LoggedInPage = ({navigation}) => {
           navigation={navigation}
         />
 
-        
-        {!drawer ? 
+        {!drawer ? (
           <TouchableOpacity
             style={loggedInPageStyles.createPost}
             onPress={() => navigation.navigate('TextEditor')}>
-            <Icon name='pencil-square-o' size={25} />
-          </TouchableOpacity> 
-          : null
-        }
-        
-        
-       
+            <Icon name="pencil-square-o" size={25} />
+          </TouchableOpacity>
+        ) : null}
       </View>
     </>
-  )
-}
+  );
+};
 
-export default LoggedInPage
+export default LoggedInPage;

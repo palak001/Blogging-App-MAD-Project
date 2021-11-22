@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {initializeApp} from 'firebase/app';
 import {getDatabase, ref, onValue} from 'firebase/database';
 import firebaseConfig from '../firebaseConfig';
-// import HTMLView from 'react-native-htmlview';
+import HTMLView from 'react-native-htmlview';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -58,18 +58,12 @@ const blogPreview = ({blog}) => {
         <Text style={styles.title}>{blog.title}</Text>
       </View>
       <View>
-        <Image style={styles.previewImage} source={{uri: blog.imageURL}} />
+        <Image
+          style={{height: hp(30), width: wp(90)}}
+          source={{uri: blog.imageURL}}
+        />
       </View>
-      <View>
-        <Text numberOfLines={3} style={styles.commentTxt}>
-          {blog.body}
-          {/* {<HTMLView value={blog.body} stylesheet={textStyles} />} */}
-          {/* {console.log(blog)} */}
-        </Text>
-      </View>
-      <View>
-        <Text style={styles.commentTxt}>Read more...</Text>
-      </View>
+
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View
           style={{
@@ -111,6 +105,15 @@ export default blogPreview;
 
 const textStyles = StyleSheet.create({
   div: {
+    color: lgrey,
+    fontFamily: 'Lato',
+    fontSize: hp(2.75),
+    lineHeight: hp(4.5),
+    textAlignVertical: 'top',
+    width: wp('90'),
+  },
+
+  p: {
     color: lgrey,
     fontFamily: 'Lato',
     fontSize: hp(2.75),

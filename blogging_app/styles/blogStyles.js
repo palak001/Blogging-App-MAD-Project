@@ -21,7 +21,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   preview: {
-    height: hp(70),
+    height: hp(55),
+    marginTop: hp(5),
+    marginBottom: hp(5),
     justifyContent: 'space-between',
   },
   smallPreview: {
