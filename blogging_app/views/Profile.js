@@ -10,7 +10,7 @@ import {authContext} from '../Context/AuthContext';
 
 const renderItem = ({item}) => {
   if (item.authorEmail !== '') {
-    console.log("item.postId: ", item.postId)
+    console.log('item.postId: ', item.postId);
     if (item.postId == 0) {
       return <ProfileHeader authorEmail={item.authorEmail} />;
     } else {
@@ -26,7 +26,7 @@ const profile = ({navigation, route}) => {
   const [userProfile, setUserProfile] = useState({});
   const [Data, setData] = useState([{postId: 0, authorEmail: ''}]);
   const [blogList, setBlogList] = useState([]);
-  
+
   useEffect(() => {
     const user = route.params;
     const userRef = ref(database, 'users');
@@ -76,7 +76,6 @@ const profile = ({navigation, route}) => {
 
               setData(newArray);
             }
-        
           },
           {onlyOnce: true},
         );

@@ -231,7 +231,7 @@ const showBlog = ({item}) => {
                 editorStyle={styles.contentStyle}
                 editorInitializedCallback={editorInitializedCallback}
                 disabled={true}
-                initialHeight={hp(60)}
+                initialHeight={hp(140)}
                 onCursorPosition={handleCursorPosition}
               />
             </View>
