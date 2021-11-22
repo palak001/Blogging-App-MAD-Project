@@ -6,20 +6,8 @@ import {
 import {lgrey, marigold, bg} from './theme';
 
 const styles = StyleSheet.create({
-  // a: {
-  //   fontWeight: "bold",
-  //   color: bg,
-
-  // },
-  // div: {
-  //   fontFamily: "monospace",
-
-  // },
-  // p: {
-  //   fontSize: hp(4),
-  // },
   rich: {
-    minHeight: hp(45),
+    height: hp(45),
     flex: 1,
     // backgroundColor: lgrey
   },
@@ -66,6 +54,51 @@ const styles = StyleSheet.create({
     fontSize: hp('3'),
     padding: hp('0.75'),
     marginLeft: hp(1),
+  },
+
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+    // width: wp(70),
+  },
+  modalView: {
+    backgroundColor: 'white',
+    borderRadius: 5,
+    padding: 15,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+
+  textStyle2: {
+    color: bg,
+    // padding: 10,
+    fontSize: hp('2'),
+    fontFamily: 'Lato',
+    textAlign: 'center',
+  },
+
+  btn1: {
+    marginTop: hp('2'),
+    // marginBottom: hp('2'),
+    padding: hp('1.5'),
+    width: wp('30'),
+    height: hp('7'),
+    backgroundColor: marigold,
+    borderRadius: hp('4'),
+    alignItems: 'center',
+    alignContent: 'center',
+  },
+  container: {
+    flex: 1,
   },
 });
 
